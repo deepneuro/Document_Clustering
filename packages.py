@@ -40,5 +40,5 @@ from text_processing import *
 from plot import *
 from clustering import *
 from parser import *
-
+from paths import *
 print("\n"+"\nPackage loaded Successfully!")
