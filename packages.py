@@ -1,4 +1,10 @@
 #%%
+import sys
+
+path = "/home/emanuel/Desktop/Doc_Clustering/Document_Clustering"
+if path not in sys.path:
+    path.sys.insert(0, path)
+
 from numpy import zeros, asarray, sum
 from math import log
 import pandas as pd
@@ -26,3 +32,10 @@ from pdfminer.pdfdocument import PDFDocument
 from pdfminer.pdfinterp import resolve1
 import PyPDF2
 from langdetect import detect_langs
+
+from detect_language import *
+from pre_processing import *
+from text_processing import *
+from plot import *
+from clustering import *
+from  import *
