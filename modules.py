@@ -6,9 +6,10 @@ import sys
 import codecs
 import re
 import glob 
-import string
 import spacy
 import numpy as np
+import io
+import fileinput
 from os import chdir, getcwd, listdir, path, mkdir, walk
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction import stop_words
@@ -23,12 +24,5 @@ from pdfminer.pdfpage import PDFPage
 from pdfminer.pdfparser import PDFParser
 from pdfminer.pdfdocument import PDFDocument
 from pdfminer.pdfinterp import resolve1
-import io
-import fileinput
-import os
-from os import chdir, getcwd, listdir, path, mkdir, walk
-import sys
-import glob
 import PyPDF2
-import codecs
 from langdetect import detect_langs

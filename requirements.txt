@@ -1,0 +1,8 @@
+numpy
+pandas
+codecs
+glob 
+pdfminer
+spacy
+PyPDF2
+langdetect
