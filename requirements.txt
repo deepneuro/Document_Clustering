@@ -1,8 +1,6 @@
 numpy
 pandas
-codecs
-glob 
-pdfminer
+pdfminer.six
 spacy
 PyPDF2
 langdetect
