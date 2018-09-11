@@ -3,7 +3,8 @@ import sys
 
 path = "/home/emanuel/Desktop/Doc_Clustering/Document_Clustering"
 if path not in sys.path:
-    path.sys.insert(0, path)
+    print("added packages to $PYTHONPATH")
+    sys.path.insert(0, path)
 
 from numpy import zeros, asarray, sum
 from math import log
@@ -38,4 +39,6 @@ from pre_processing import *
 from text_processing import *
 from plot import *
 from clustering import *
-from  import *
+from parser import *
+
+print("\n"+"\nPackage loaded Successfully!")
