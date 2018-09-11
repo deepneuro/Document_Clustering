@@ -1,3 +1,4 @@
+#%%
 from numpy import zeros, asarray, sum
 from math import log
 import pandas as pd
