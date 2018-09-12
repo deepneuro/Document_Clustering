@@ -32,24 +32,21 @@ if __name__ == "__main__":
     """
     print("Loaded main class\n")
     
-    cv_path = r"/home/emanuel/Desktop/cvs"
+    cv_path = r"/Users/emanuel/Desktop/Document_Clustering"
     #cv_path = r"C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\4-Abril_14"
 
-    pdfName = r"/CV_EmanuelOliveira_pt.pdf"
-    # pdfName = r"\Andreia Raquel Machado Carvalho_04_2014.pdf"
-
-    parser = Parser2txt(cv_path, pdfName)
+    parser = Parser2txt(cv_path)
     # print(parser.getMainPATH())
     # print(parser.getFilePath())
 
 
-    # print(parser.pdf2text())
-    # lista = parser.txtFiles()
+    lista = parser.docLists()
+    # print(lista)
     
-    # gandalf = Paths(cv_path, pdfName)
+    # gandalf = Paths(cv_path)
     # lista, bacon = gandalf.getPdfs()
 
     # for x in bacon:
     #     print(x)
     # print(len(lista))
-    parser.outputTxt()
+    # parser.outputTxt()

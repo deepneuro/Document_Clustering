@@ -4,30 +4,22 @@ from paths import *
 
 class Parser2txt(Paths):
 
-    def __init__(self, folder, pdfName, filenames=None, folders=None):
+    def __init__(self, folder, filenames=None, folders=None):
         #Main.__init__(self)
-        super().__init__(folder, pdfName, filenames, folders)
+        super().__init__(self)
         self.folder = folder
-        self.pdfName = pdfName
 
     def loadClass(self):
         print("Loaded Parser class!")
-
-    # get CV pathS
-    def getMainPATH(self):
-        return self.folder
-    # get
-    def getPATH(self):
-        return self.pdfPATH
-
-    def getFilePath(self):
-        return self.folder + self.pdfName
 
     def getNumFiles(self):
         return len(self.filenames)
 
     def getFilePath(self, filename, i):
         return self.folders[i] + "/" + filename
+
+    def getListText(self):
+        pass
 
     def pdf2text(self, filename, i):
         rsrcmgr = PDFResourceManager()
@@ -49,7 +41,7 @@ class Parser2txt(Paths):
         retstr.close()
         return self.text
 
-    def txtFiles(self):
+    def docLists(self):
         documents = []
         txt = []
         self.filenames, self.folders = self.getPdfs()
@@ -65,18 +57,17 @@ class Parser2txt(Paths):
         return documents
 
     def outputTxt(self):
-        self.makeFolder(self.folder + r'/outputTxt')
-        self.filenames, self.folders = self.getPdfs()
+        outFolder = self.makeFolder(self.folder + r'/outputTxt')
+        self.filenames, _ = self.getPdfs()
 
         for i, filename in enumerate(self.filenames):
             self.pdf2text(filename, i)
-            f_out = open(self.getFilePath(filename, i)[:-4] + '.txt', 'w')
-
-            # write using...
+            f_out = open(outFolder + filename[:-4] + '.txt', 'w')
+            # f_out = open(self.getFilePath(filename, i)[:-4] + '.txt', 'w')
             f_out.write(self.text)
 
             f_out.close()
-            print(self.getFilePath(filename, i)[:-4] + '.txt')
+            print("Doc Num:",i ,'| Written to:', self.getFilePath(filename, i)[:-4] + '.txt','\n')
             break
         pass
 

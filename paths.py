@@ -4,9 +4,8 @@ import os, errno
 
 class Paths():
 
-    def __init__(self, folder, pdfName, filenames=None, subfolders=None, folders=None):
+    def __init__(self, folder, filenames=None, subfolders=None, folders=None):
         self.folder = folder
-        self.pdfName = pdfName
         self.filenames = filenames
         self.subfolders = subfolders
         self.folders = folders
@@ -43,3 +42,4 @@ class Paths():
             print('\nFolder', directory, 'exists!\n')
             if e.errno != errno.EEXIST:
                 raise
+        return self.folder + r'/outputTxt/'
