@@ -8,8 +8,7 @@ if path not in sys.path:
     sys.path.insert(0, path)
 #%%
 from packages import *
-# from parser import *
-# from paths import *
+
 
 class Main():
 
@@ -50,4 +49,4 @@ if __name__ == "__main__":
 
     # print(parser.pdf2text())
     lista = parser.txtFiles()
-    print(lista)
+    #print(lista)
