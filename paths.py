@@ -1,5 +1,6 @@
 #%%
 from packages import glob
+import os, errno
 
 class Paths():
 
@@ -33,3 +34,12 @@ class Paths():
                 self.filenames.append(x.split('/')[-1])
                 self.folders.append("/".join(x.split('/')[:-1]))
         return self.filenames, self.folders
+    
+    def makeFolder(self, directory):
+        try:
+            os.makedirs(directory)
+            print(directory, 'created!')
+        except OSError as e:
+            print('\nFolder', directory, 'exists!\n')
+            if e.errno != errno.EEXIST:
+                raise

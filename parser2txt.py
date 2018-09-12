@@ -4,9 +4,9 @@ from paths import *
 
 class Parser2txt(Paths):
 
-    def __init__(self, folder, pdfName, subfolders=None, folders=None):
+    def __init__(self, folder, pdfName, filenames=None, folders=None):
         #Main.__init__(self)
-        super().__init__(self, folder, pdfName, subfolders, folders)
+        super().__init__(folder, pdfName, filenames, folders)
         self.folder = folder
         self.pdfName = pdfName
 
@@ -23,6 +23,12 @@ class Parser2txt(Paths):
     def getFilePath(self):
         return self.folder + self.pdfName
 
+    def getNumFiles(self):
+        return len(self.filenames)
+
+    def getFilePath(self, filename, i):
+        return self.folders[i] + "/" + filename
+
     def pdf2text(self, filename, i):
         rsrcmgr = PDFResourceManager()
         retstr = io.StringIO()
@@ -30,7 +36,7 @@ class Parser2txt(Paths):
         laparams = LAParams()
         device = TextConverter(rsrcmgr, retstr, codec=codec, laparams=laparams)
         # fp = open(self.folder + self.pdfName, 'rb')
-        fp = open(self.folders[i] + "/" + filename, 'rb')
+        fp = open(self.getFilePath(filename, i), 'rb')
         interpreter = PDFPageInterpreter(rsrcmgr, device)
 
         for page in PDFPage.get_pages(fp, pagenos=set(), maxpages=0, password="",caching=True, check_extractable=True):
@@ -46,8 +52,7 @@ class Parser2txt(Paths):
     def txtFiles(self):
         documents = []
         txt = []
-        paths = Paths(self.folder, self.pdfName)
-        self.filenames, self.folders = paths.getPdfs()
+        self.filenames, self.folders = self.getPdfs()
         for i, filename in enumerate(self.filenames):
             self.pdf2text(filename, i)
             # print(self.text)
@@ -56,5 +61,24 @@ class Parser2txt(Paths):
             txt.append(self.text)
             if i < 10: print('Doc Num:',i,' | Filename:', filename)
             else: print('Doc Num:',i,'| Filename:', filename)
-        print("Pdf2Text completed!")
+        print("Pdf2List completed!")
         return documents
+
+    def outputTxt(self):
+        self.makeFolder(self.folder + r'/outputTxt')
+        self.filenames, self.folders = self.getPdfs()
+
+        for i, filename in enumerate(self.filenames):
+            self.pdf2text(filename, i)
+            f_out = open(self.getFilePath(filename, i)[:-4] + '.txt', 'w')
+
+            # write using...
+            f_out.write(self.text)
+
+            f_out.close()
+            print(self.getFilePath(filename, i)[:-4] + '.txt')
+            break
+        pass
+
+        
+    

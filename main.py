@@ -7,8 +7,7 @@ if path not in sys.path:
     print("added packages to $PYTHONPATH")
     sys.path.insert(0, path)
 #%%
-from packages import *
-
+from packages import Parser2txt
 
 class Main():
 
@@ -31,7 +30,7 @@ if __name__ == "__main__":
     - detail each function!
     - detail each function!
     """
-    print("Loaded main class")
+    print("Loaded main class\n")
     
     cv_path = r"/home/emanuel/Desktop/cvs"
     #cv_path = r"C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\4-Abril_14"
@@ -45,11 +44,12 @@ if __name__ == "__main__":
 
 
     # print(parser.pdf2text())
-    lista = parser.txtFiles()
-        
+    # lista = parser.txtFiles()
+    
     # gandalf = Paths(cv_path, pdfName)
     # lista, bacon = gandalf.getPdfs()
 
     # for x in bacon:
     #     print(x)
     # print(len(lista))
+    parser.outputTxt()
