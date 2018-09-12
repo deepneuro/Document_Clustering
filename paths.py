@@ -18,7 +18,7 @@ class Paths():
         return self.folder
 
     def getPdfs(self):
-        paths = glob.glob('/home/emanuel/Desktop/cvs/*.pdf')
+        paths = glob.glob(self.folder + '/*.pdf')
         for x in paths:
             if x.endswith('.pdf'):
                 self.filenames.append(x.split('/')[-1])
