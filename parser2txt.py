@@ -2,7 +2,7 @@
 from packages import PDFPage, PDFResourceManager, TextConverter, PDFPageInterpreter, io, LAParams
 from paths import *
 
-class Parser():
+class Parser2txt():
 
     def __init__(self, folder, pdfName, filenames=None):
         #Main.__init__(self)
@@ -30,7 +30,6 @@ class Parser():
         pass
 
     def pdf2text(self, filename):
-        print()
         rsrcmgr = PDFResourceManager()
         retstr = io.StringIO()
         codec = 'utf-8'
@@ -57,9 +56,13 @@ class Parser():
         self.filenames = paths.getPdfs()
         for i, filename in enumerate(self.filenames):
             self.pdf2text(filename)
-            print(self.text)
+            # print(self.text)
             documents.append([filename])
             documents[i].append(self.text)
             txt.append(self.text)
-            break
+            if i < 10: print('Doc Num:',i,' | Filename:', filename)
+            else: print('Doc Num:',i,'| Filename:', filename)
+
+
+        print("Pdf2Text completed!")
         return documents

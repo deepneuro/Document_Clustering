@@ -41,6 +41,7 @@ from pre_processing import *
 from text_processing import *
 from plot import *
 from clustering import *
-from parser import *
+from parser2txt import *
 from paths import *
+
 print("\n"+"\nPackage loaded Successfully!")

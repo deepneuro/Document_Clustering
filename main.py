@@ -39,7 +39,7 @@ if __name__ == "__main__":
     pdfName = r"/CV_EmanuelOliveira_pt.pdf"
     # pdfName = r"\Andreia Raquel Machado Carvalho_04_2014.pdf"
 
-    parser = Parser(cv_path, pdfName)
+    parser = Parser2txt(cv_path, pdfName)
     # print(parser.getMainPATH())
     # print(parser.getFilePath())
 
@@ -49,4 +49,4 @@ if __name__ == "__main__":
 
     # print(parser.pdf2text())
     lista = parser.txtFiles()
-    #print(lista)
+    print(len(lista))
