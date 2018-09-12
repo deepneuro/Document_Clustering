@@ -1,16 +1,18 @@
-print(1+1)
+#%%
 import sys
-from parser import *
-from paths import *
-print(1+1)
-#path = "/home/emanuel/Desktop/Doc_Clustering/Document_Clustering"
-path = "C:\\Users\\Emanuel\\Desktop\\DocClu\\Document_Clustering\\"
+path = "/home/emanuel/Desktop/Doc_Clustering/Document_Clustering"
+# path = "C:\\Users\\Emanuel\\Desktop\\DocClu\\Document_Clustering\\"
 
 if path not in sys.path:
     print("added packages to $PYTHONPATH")
     sys.path.insert(0, path)
-sys.path
+#%%
 #from packages import *
+from parser import *
+from paths import *
+
+
+
 class Main():
 
     def __init__(self):
@@ -33,18 +35,20 @@ if __name__ == "__main__":
     """
     print("Loaded main class")
 
-    cv_path = r"C:\Users\Emanuel\Desktop\DocClu\CV"
-    cv_path1 = r"C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\4-Abril_14"
+    cv_path = r"/home/emanuel/Desktop/Doc_Clustering/Document_Clustering"
+    
+    #cv_path = r"C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\4-Abril_14"
 
-    pdfName = r"\CV_EmanuelLimaOliveira_pt.pdf"
-    pdfName1 = r"\Andreia Raquel Machado Carvalho_04_2014.pdf"
+    pdfName = r"/CV_EmanuelOliveira_pt.pdf"
+    # pdfName = r"\Andreia Raquel Machado Carvalho_04_2014.pdf"
 
-    parser = Parser(cv_path1, pdfName1)
-    print(parser.getMainPATH())
-    print(parser.getFilePath())
-    print(parser.pdf2text())
+    parser = Parser(cv_path, pdfName)
+    # print(parser.getMainPATH())
+    # print(parser.getFilePath())
 
-    paths = Paths(cv_path1, pdfName1)
-    print(paths.getPdfs())
+    # paths = Paths(cv_path, pdfName)
+    # print(paths.getPdfs())
 
 
+    # print(parser.pdf2text())
+    print(parser.txtFiles())

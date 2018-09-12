@@ -1,12 +1,14 @@
 #%%
-from packages import PDFResourceManager, TextConverter, PDFPageInterpreter, io, LAParams
+from packages import PDFPage, PDFResourceManager, TextConverter, PDFPageInterpreter, io, LAParams
+from paths import *
 
-class Parser():
+class Parser(Paths):
 
-    def __init__(self, folder, pdfName):
+    def __init__(self, folder, pdfName, filenames=None):
         #Main.__init__(self)
         self.folder = folder
         self.pdfName = pdfName
+        super().__init__(self, filenames)
 
     def loadClass(self):
         print("Loaded Parser class!")
@@ -39,13 +41,22 @@ class Parser():
         for page in PDFPage.get_pages(fp, pagenos=set(), maxpages=0, password="",caching=True, check_extractable=True):
             interpreter.process_page(page)
 
-        text = retstr.getvalue()
+        self.text = retstr.getvalue()
 
         fp.close()
         device.close()
         retstr.close()
-        return text
+        return self.text
 
+    def txtFiles(self):
+        documents = []
+        txt = []
+        paths = Patllllhs(self.folder, self.pdfName)
+        self.filenames = paths.getPdfs()
+        for i, filename in enumerate(self.filenames):
+            text = pdf2text()
+            documents.append([filename])
+            documents[i].append(self.text)
+            txt.append(self.text)
+        return txt
 
-Parser(None,None).loadClass()
-# Parser("s", "ws").pdf2text()

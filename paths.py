@@ -3,10 +3,13 @@ from packages import glob
 
 class Paths():
 
-    def __init__(self, folder, pdfName):
+    def __init__(self, folder, pdfName, filenames=None):
         self.folder = folder
         self.pdfName = pdfName
-        self.filenames = []
+        self.filenames = filenames
+        if self.filenames is None:
+            self.filenames = []
+
 
     def loadClass(self):
         print("Loaded Paths class")

@@ -2,6 +2,8 @@
 import sys
 
 path = "/home/emanuel/Desktop/Doc_Clustering/Document_Clustering"
+# path = "C:\\Users\\Emanuel\\Desktop\\DocClu\\Document_Clustering\\"
+
 if path not in sys.path:
     print("added packages to $PYTHONPATH")
     sys.path.insert(0, path)
