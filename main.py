@@ -7,11 +7,9 @@ if path not in sys.path:
     print("added packages to $PYTHONPATH")
     sys.path.insert(0, path)
 #%%
-#from packages import *
-from parser import *
-from paths import *
-
-
+from packages import *
+# from parser import *
+# from paths import *
 
 class Main():
 
@@ -35,8 +33,8 @@ if __name__ == "__main__":
     """
     print("Loaded main class")
 
-    cv_path = r"/home/emanuel/Desktop/Doc_Clustering/Document_Clustering"
-    
+    cv_path = r"/home/emanuel/Desktop/cvs"
+
     #cv_path = r"C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\4-Abril_14"
 
     pdfName = r"/CV_EmanuelOliveira_pt.pdf"
@@ -51,4 +49,5 @@ if __name__ == "__main__":
 
 
     # print(parser.pdf2text())
-    print(parser.txtFiles())
+    lista = parser.txtFiles()
+    print(lista)

@@ -2,13 +2,13 @@
 from packages import PDFPage, PDFResourceManager, TextConverter, PDFPageInterpreter, io, LAParams
 from paths import *
 
-class Parser(Paths):
+class Parser():
 
     def __init__(self, folder, pdfName, filenames=None):
         #Main.__init__(self)
         self.folder = folder
         self.pdfName = pdfName
-        super().__init__(self, filenames)
+        #super().__init__(self, filenames)
 
     def loadClass(self):
         print("Loaded Parser class!")
@@ -29,13 +29,15 @@ class Parser(Paths):
         # codec = 'utf-8'
         pass
 
-    def pdf2text(self):
+    def pdf2text(self, filename):
+        print()
         rsrcmgr = PDFResourceManager()
         retstr = io.StringIO()
         codec = 'utf-8'
         laparams = LAParams()
         device = TextConverter(rsrcmgr, retstr, codec=codec, laparams=laparams)
-        fp = open(self.folder + self.pdfName, 'rb')
+        # fp = open(self.folder + self.pdfName, 'rb')
+        fp = open(self.folder + "/" + filename, 'rb')
         interpreter = PDFPageInterpreter(rsrcmgr, device)
 
         for page in PDFPage.get_pages(fp, pagenos=set(), maxpages=0, password="",caching=True, check_extractable=True):
@@ -51,12 +53,13 @@ class Parser(Paths):
     def txtFiles(self):
         documents = []
         txt = []
-        paths = Patllllhs(self.folder, self.pdfName)
+        paths = Paths(self.folder, self.pdfName)
         self.filenames = paths.getPdfs()
         for i, filename in enumerate(self.filenames):
-            text = pdf2text()
+            self.pdf2text(filename)
+            print(self.text)
             documents.append([filename])
             documents[i].append(self.text)
             txt.append(self.text)
-        return txt
-
+            break
+        return documents
