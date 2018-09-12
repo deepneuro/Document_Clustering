@@ -14,12 +14,12 @@ class Parser():
     # get CV path
     def getMainPATH(self):
         return self.folder
-    # get 
+    # get
     def getPATH(self):
         return self.pdfPATH
 
     def getFilePath(self):
-        return self.folder + r"/" + self.pdfName
+        return self.folder + self.pdfName
 
     # Variable dumper if needed
     def pdf_var(self):
@@ -33,14 +33,10 @@ class Parser():
         codec = 'utf-8'
         laparams = LAParams()
         device = TextConverter(rsrcmgr, retstr, codec=codec, laparams=laparams)
-        fp = open(self.pdfPATH, 'rb')
+        fp = open(self.folder + self.pdfName, 'rb')
         interpreter = PDFPageInterpreter(rsrcmgr, device)
-        password = ""
-        maxpages = 0
-        caching = True
-        pagenos=set()
 
-        for page in PDFPage.get_pages(fp, pagenos, maxpages=maxpages, password=password,caching=caching, check_extractable=True):
+        for page in PDFPage.get_pages(fp, pagenos=set(), maxpages=0, password="",caching=True, check_extractable=True):
             interpreter.process_page(page)
 
         text = retstr.getvalue()
