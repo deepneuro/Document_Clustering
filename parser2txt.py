@@ -15,11 +15,17 @@ class Parser2txt(Paths):
     def getNumFiles(self):
         return len(self.filenames)
 
+    def getFilename(self, i):
+        return self.documents[i]
+
     def getFilePath(self, filename, i):
         return self.folders[i] + "/" + filename
 
     def getListText(self):
         return list(self.text)
+
+    def getListSize(self, x):
+        return len(x)
 
     def pdf2text(self, filename, i):
         rsrcmgr = PDFResourceManager()
@@ -71,8 +77,9 @@ class Parser2txt(Paths):
             break
         pass
 
-    def langDetector(self,i):
-        return detect(self.documents[i][1])
+    def langDetector(self,i=0):
+        if len(self.documents) == 0:
+            return detect(self.documents[i][1])
 
         
     
