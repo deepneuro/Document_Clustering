@@ -20,10 +20,10 @@ if __name__ == "__main__":
     cv_path = r"/Users/emanuel/Desktop/Document_Clustering"
     #cv_path = r"C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\4-Abril_14"
 
-    # parser = Parser2txt(cv_path)
-    # lista = parser.docLists()
+    parser = Parser2txt(cv_path)
+    lista = parser.docLists()
     
-    gandalf = Paths(cv_path)
-    wizard, bacon = gandalf.getPdfs()
+    # gandalf = Paths(cv_path)
+    # wizard, bacon = gandalf.getPdfs()
 
     # parser.outputTxt()

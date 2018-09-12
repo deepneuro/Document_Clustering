@@ -36,7 +36,7 @@ from pdfminer.pdfparser import PDFParser
 from pdfminer.pdfdocument import PDFDocument
 from pdfminer.pdfinterp import resolve1
 import PyPDF2
-from langdetect import detect_langs
+from langdetect import detect_langs, detect
 
 
 from detect_language import *
