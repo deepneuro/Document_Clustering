@@ -14,7 +14,8 @@ class Main():
 
     def __init__(self):
         # self.x = x
-        Parser.__init__(self)
+        # Parser.__init__(self)
+        pass
 
     # def getTestA(self):
     #     print(self.a)
@@ -33,7 +34,6 @@ if __name__ == "__main__":
     print("Loaded main class")
     
     cv_path = r"/home/emanuel/Desktop/cvs"
-
     #cv_path = r"C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\4-Abril_14"
 
     pdfName = r"/CV_EmanuelOliveira_pt.pdf"
@@ -43,10 +43,13 @@ if __name__ == "__main__":
     # print(parser.getMainPATH())
     # print(parser.getFilePath())
 
-    # paths = Paths(cv_path, pdfName)
-    # print(paths.getPdfs())
-
 
     # print(parser.pdf2text())
     lista = parser.txtFiles()
-    print(len(lista))
+        
+    # gandalf = Paths(cv_path, pdfName)
+    # lista, bacon = gandalf.getPdfs()
+
+    # for x in bacon:
+    #     print(x)
+    # print(len(lista))
