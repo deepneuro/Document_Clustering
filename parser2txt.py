@@ -19,7 +19,7 @@ class Parser2txt(Paths):
         return self.folders[i] + "/" + filename
 
     def getListText(self):
-        pass
+        return list(self.text)
 
     def pdf2text(self, filename, i):
         rsrcmgr = PDFResourceManager()
@@ -65,7 +65,6 @@ class Parser2txt(Paths):
             f_out = open(outFolder + filename[:-4] + '.txt', 'w')
             # f_out = open(self.getFilePath(filename, i)[:-4] + '.txt', 'w')
             f_out.write(self.text)
-
             f_out.close()
             print("Doc Num:",i ,'| Written to:', self.getFilePath(filename, i)[:-4] + '.txt','\n')
             break

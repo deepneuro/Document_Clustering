@@ -19,6 +19,8 @@ import spacy
 import numpy as np
 import io
 import fileinput
+import os
+import errno
 from os import chdir, getcwd, listdir, path, mkdir, walk
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction import stop_words
@@ -35,6 +37,7 @@ from pdfminer.pdfdocument import PDFDocument
 from pdfminer.pdfinterp import resolve1
 import PyPDF2
 from langdetect import detect_langs
+
 
 from detect_language import *
 from pre_processing import *

@@ -1,7 +1,5 @@
 #%%
 from packages import glob
-import os, errno
-
 class Paths():
 
     def __init__(self, folder, filenames=None, subfolders=None, folders=None):
@@ -13,7 +11,6 @@ class Paths():
             self.filenames = []
         if self.folders is None:
             self.folders = []
-
 
     def loadClass(self):
         print("Loaded Paths class")
@@ -35,6 +32,7 @@ class Paths():
         return self.filenames, self.folders
     
     def makeFolder(self, directory):
+        from packages import glob, os, errno
         try:
             os.makedirs(directory)
             print(directory, 'created!')
