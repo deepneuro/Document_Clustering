@@ -1,6 +1,8 @@
-#%%
+print(1+1)
 import sys
-
+from parser import *
+from paths import *
+print(1+1)
 #path = "/home/emanuel/Desktop/Doc_Clustering/Document_Clustering"
 path = "C:\\Users\\Emanuel\\Desktop\\DocClu\\Document_Clustering\\"
 
@@ -8,7 +10,6 @@ if path not in sys.path:
     print("added packages to $PYTHONPATH")
     sys.path.insert(0, path)
 sys.path
-#%%
 #from packages import *
 class Main():
 
@@ -32,13 +33,18 @@ if __name__ == "__main__":
     """
     print("Loaded main class")
 
-    path = r"C:\Users\Emanuel\Desktop\DocClu\CV"
-    pdfName = r"\CV_EmanuelLimaOliveira_pt.pdf"
+    cv_path = r"C:\Users\Emanuel\Desktop\DocClu\CV"
+    cv_path1 = r"C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\4-Abril_14"
 
-    parser = Parser(path, pdfName)
+    pdfName = r"\CV_EmanuelLimaOliveira_pt.pdf"
+    pdfName1 = r"\Andreia Raquel Machado Carvalho_04_2014.pdf"
+
+    parser = Parser(cv_path1, pdfName1)
     print(parser.getMainPATH())
     print(parser.getFilePath())
     print(parser.pdf2text())
 
-    paths = Paths(PATH, pdfName)
+    paths = Paths(cv_path1, pdfName1)
     print(paths.getPdfs())
+
+
