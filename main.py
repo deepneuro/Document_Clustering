@@ -30,13 +30,23 @@ if __name__ == "__main__":
 
     # parser.outputTxt()
 
+    def test1():       
+        documents = parser.docLists()
+        pre = Pre_processing(documents)
 
-    # documents = parser.docLists()
-    # pre = Pre_processing(documents)
-    pre = Pre_processing()
+        pre.text_process(stem=False, lemma=True)
+        pre.saveObjs()
+
+    def test2():
+        pre = Pre_processing()
+        a, b, c = pre.loadObjs()
+        print(c)
 
     # pre.preparation()
-    # pre.text_process()
-    # pre.saveObjs()
     # print(pre.getTokenized())
-    # a, b = pre.loadObjs()
+
+    # pre = Pre_processing()
+    # a, b, c = pre.loadObjs()
+
+    # test1()
+    test2()
