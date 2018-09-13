@@ -5,7 +5,6 @@ import spacy.lang.en.stop_words, spacy.lang.pt.stop_words, spacy.lang.en.lemmati
 import pickle
 from parser2txt import *
 
-
 class Pre_processing(Parser2txt):
 
     def __init__(self, documents=None, lang=None):
@@ -13,10 +12,9 @@ class Pre_processing(Parser2txt):
         self.lang = lang
         if self.documents is None:
             self.documents = []
-        
 
     def preparation(self):
-        nlp = spacy.load('xx')
+        # nlp = spacy.load('xx')
         nltk.download('stopwords')
         nltk.download('punkt')
         nltk.download('wordnet')
@@ -36,8 +34,7 @@ class Pre_processing(Parser2txt):
             self.totalvocab_tokenized, self.totalvocab_stemmed, self.lemma = pickle.load(f)
         return self.totalvocab_tokenized, self.totalvocab_stemmed, self.lemma
 
-
-    def tokenize_and_stem(self, text, stemmer):
+    def tokenize_and_stem(self, text, stemmer, lemmatize=False):
     # first tokenize by sentence, then by word to ensure that punctuation is caught as it's own token
         tokens = [word for sent in nltk.sent_tokenize(text) for word in nltk.word_tokenize(sent)]
         filtered_tokens = []
@@ -50,9 +47,12 @@ class Pre_processing(Parser2txt):
                 if re.search('[a-zA-Z]', token) and token not in spacy.lang.en.stop_words.STOP_WORDS and len(token)>2:
                     filtered_tokens.append(token)
         stems = [stemmer.stem(t) for t in filtered_tokens]
+        if lemmatize:
+            self.lemmaDoc = self.lemmatizer(stems)
+            return self.lemmaDoc
         return stems
 
-    def tokenize_only(self, text):
+    def tokenize_only(self, text, lemmatize=False):
         # first tokenize by sentence, then by word to ensure that punctuation is caught as it's own token
         tokens = [word.lower() for sent in nltk.sent_tokenize(text) for word in nltk.word_tokenize(sent)]
         filtered_tokens = []
@@ -64,6 +64,9 @@ class Pre_processing(Parser2txt):
             elif self.lang == "en":
                 if re.search('[a-zA-Z]', token) and token not in spacy.lang.en.stop_words.STOP_WORDS and len(token)>2:
                     filtered_tokens.append(token)
+        if lemmatize:
+            self.lemmaDoc = self.lemmatizer(filtered_tokens)
+            return self.lemmaDoc
         return filtered_tokens
 
     def lemmatizer(self, tokens):
@@ -113,3 +116,33 @@ class Pre_processing(Parser2txt):
                         self.lemma.extend(lemma)
         print('Text Processing successful!')
 
+    def text_process(self, stem=True, lemma=True):
+        self.totalvocab_stemmed = []
+        self.totalvocab_tokenized = []
+        self.lemma = []
+        # self.stopwords = nltk.corpus.stopwords.words('english')
+
+        for i in range(len(self.documents)):
+            self.lang = self.langDetector(i)
+            for text in self.documents[i][1:]:
+                if stem:
+                    if self.lang == "en" and lemma:
+                        stemmer = SnowballStemmer("english")
+                        allwords_stemmed = self.tokenize_and_stem(text, stemmer) #for each item in 'synopses', tokenize/stem
+                        self.totalvocab_stemmed.extend(allwords_stemmed) #extend the 'totalvocab_stemmed' list
+                        lemma = self.lemmatizer(self.totalvocab_stemmed)
+                        self.lemma.extend(lemma)
+
+                    elif self.lang == "pt":
+                        stemmer = SnowballStemmer("portuguese")
+                        allwords_stemmed = self.tokenize_and_stem(text, stemmer) #for each item in 'synopses', tokenize/stem
+                        self.totalvocab_stemmed.extend(allwords_stemmed) #extend the 'totalvocab_stemmed' list
+                        lemma = self.lemmatizer(self.totalvocab_stemmed)
+                        self.lemma.extend(lemma)
+                else:
+                    allwords_tokenized = self.tokenize_only(text)
+                    self.totalvocab_tokenized.extend(allwords_tokenized)
+                    if lemma:
+                        lemma = self.lemmatizer(self.totalvocab_tokenized)
+                        self.lemma.extend(lemma)
+        print('Text Processing successful!')
