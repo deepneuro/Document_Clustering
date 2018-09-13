@@ -27,6 +27,11 @@ class Parser2txt(Paths):
     def getListSize(self, x):
         return len(x)
 
+    def langDetector(self,i=0):
+        if self.documents and len(self.documents) != 0:
+            return detect(self.documents[i][1])
+        else: return detect(self.text)
+
     def pdf2text(self, filename, i):
         rsrcmgr = PDFResourceManager()
         retstr = io.StringIO()
@@ -76,10 +81,6 @@ class Parser2txt(Paths):
             print("Doc Num:",i ,'| Written to:', self.getFilePath(filename, i)[:-4] + '.txt','\n')
             break
         pass
-
-    def langDetector(self,i=0):
-        if len(self.documents) == 0:
-            return detect(self.documents[i][1])
 
         
     

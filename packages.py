@@ -40,11 +40,11 @@ from langdetect import detect_langs, detect
 
 
 from detect_language import *
-from pre_processing import *
-from text_processing import *
 from plot import *
 from clustering import *
 from parser2txt import *
 from paths import *
+from text_processing import *
+from pre_processing import *
 
 print("\n"+"\nPackage loaded Successfully!")
