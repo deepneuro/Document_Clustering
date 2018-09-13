@@ -34,20 +34,23 @@ class Pre_processing(Parser2txt):
             self.totalvocab_tokenized, self.totalvocab_stemmed, self.lemma = pickle.load(f)
         return self.totalvocab_tokenized, self.totalvocab_stemmed, self.lemma
 
-    def tokenize_and_stem(self, text, stemmer, lemmatize=False):
+    def tokenize_and_stem(self, text, lemmatize=True):
     # first tokenize by sentence, then by word to ensure that punctuation is caught as it's own token
         tokens = [word for sent in nltk.sent_tokenize(text) for word in nltk.word_tokenize(sent)]
         filtered_tokens = []
         # filter out any tokens not containing letters (e.g., numeric tokens, raw punctuation)
         for token in tokens:
             if self.lang == "pt":
+                stemmer = SnowballStemmer("portuguese")
                 if re.search('[a-zA-Z]', token) and token not in spacy.lang.pt.stop_words.STOP_WORDS and len(token)>2:
                     filtered_tokens.append(token)
             elif self.lang == "en":
+                stemmer = SnowballStemmer("english")
                 if re.search('[a-zA-Z]', token) and token not in spacy.lang.en.stop_words.STOP_WORDS and len(token)>2:
                     filtered_tokens.append(token)
         stems = [stemmer.stem(t) for t in filtered_tokens]
         if lemmatize:
+            print("Applying Lemmatizer...")
             self.lemmaDoc = self.lemmatizer(stems)
             return self.lemmaDoc
         return stems
@@ -74,12 +77,12 @@ class Pre_processing(Parser2txt):
         # lemma = [wordnet_lemmatizer.lemmatize(x) for x in tokens]
         lemma = []
         if self.lang == "en":
-            lems = spacy.lang.en.lemmatizer.LOOKUP
+            lems = dict(spacy.lang.en.lemmatizer.LOOKUP)
             for token in tokens:
                 if token in lems: lemma.append(lems[token])
                 else: lemma.append(token)
         elif self.lang == "pt":
-            lems = spacy.lang.pt.lemmatizer.LOOKUP
+            lems = dict(spacy.lang.pt.lemmatizer.LOOKUP)
             for token in tokens:
                 if token in lems: lemma.append(lems[token])
                 else: lemma.append(token)
@@ -96,7 +99,6 @@ class Pre_processing(Parser2txt):
             for text in self.documents[i][1:]:
                 if stem:
                     if self.lang == "en" and lemma:
-                        stemmer = SnowballStemmer("english")
                         allwords_stemmed = self.tokenize_and_stem(text, stemmer) #for each item in 'synopses', tokenize/stem
                         self.totalvocab_stemmed.extend(allwords_stemmed) #extend the 'totalvocab_stemmed' list
                         lemma = self.lemmatizer(self.totalvocab_stemmed)

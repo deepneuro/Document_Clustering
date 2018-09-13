@@ -1,7 +1,6 @@
 #%%
 from packages import glob
 class Paths():
-
     def __init__(self, folder, filenames=None, subfolders=None, folders=None):
         self.folder = folder
         self.filenames = filenames

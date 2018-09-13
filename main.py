@@ -1,5 +1,5 @@
 #%%
-from packages import Parser2txt, Paths, Pre_processing
+from packages import Parser2txt, Paths, Pre_processing, TextProcessing
 
 class Main():
 
@@ -17,8 +17,8 @@ if __name__ == "__main__":
     """
     print("Loaded main class\n")
     
-    # cv_path = r"/Users/emanuel/Desktop/Document_Clustering"
-    cv_path = r"/home/emanuel/Desktop/cvs"
+    cv_path = r"/Users/emanuel/Desktop/Document_Clustering"
+    #cv_path = r"/home/emanuel/Desktop/cvs"
     
     # cv_path = r"C:\Users\sergiojesus\DWesktop\Coisas da Alvita\CV\4-Abril_14"
 
@@ -30,7 +30,7 @@ if __name__ == "__main__":
 
     # parser.outputTxt()
 
-    def test1():       
+    def test1():
         documents = parser.docLists()
         return documents
         # parser.saveObjs()
@@ -55,4 +55,8 @@ if __name__ == "__main__":
 
     # docs = test1()
     # test2(docs)
-    test3()
+    #test3()
+
+    x = TextProcessing(cv_path)
+    #print(x.docs())
+    print(x.corpus())
