@@ -32,12 +32,17 @@ if __name__ == "__main__":
 
     def test1():       
         documents = parser.docLists()
+        return documents
+        # parser.saveObjs()
+
+    def test2(documents):
+        # documents = parser.loadObjs()
         pre = Pre_processing(documents)
 
         pre.text_process(stem=False, lemma=True)
         pre.saveObjs()
 
-    def test2():
+    def test3():
         pre = Pre_processing()
         a, b, c = pre.loadObjs()
         print(c)
@@ -48,5 +53,6 @@ if __name__ == "__main__":
     # pre = Pre_processing()
     # a, b, c = pre.loadObjs()
 
-    # test1()
-    test2()
+    # docs = test1()
+    # test2(docs)
+    test3()

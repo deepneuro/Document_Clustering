@@ -1,6 +1,7 @@
 #%%
 from packages import PDFPage, PDFResourceManager, TextConverter, PDFPageInterpreter, io, LAParams, detect_langs, detect
 from paths import *
+import pickle
 
 class Parser2txt(Paths):
 
@@ -11,6 +12,17 @@ class Parser2txt(Paths):
 
     def loadClass(self):
         print("Loaded Parser class!")
+
+    def saveObjs(self):
+        with open('Doc_objs.pkl', 'wb') as f:
+            pickle.dump([self.documents], f)
+        print('Doc objects saved!')
+
+    def loadObjs(self):
+        with open('Doc_objs.pkl', 'rb') as f:
+            self.documents = pickle.load(f)
+        print('Doc objects loaded!')
+        return self.documents
 
     def getNumFiles(self):
         return len(self.filenames)

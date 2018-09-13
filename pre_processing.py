@@ -116,33 +116,3 @@ class Pre_processing(Parser2txt):
                         self.lemma.extend(lemma)
         print('Text Processing successful!')
 
-    def text_process(self, stem=True, lemma=True):
-        self.totalvocab_stemmed = []
-        self.totalvocab_tokenized = []
-        self.lemma = []
-        # self.stopwords = nltk.corpus.stopwords.words('english')
-
-        for i in range(len(self.documents)):
-            self.lang = self.langDetector(i)
-            for text in self.documents[i][1:]:
-                if stem:
-                    if self.lang == "en" and lemma:
-                        stemmer = SnowballStemmer("english")
-                        allwords_stemmed = self.tokenize_and_stem(text, stemmer) #for each item in 'synopses', tokenize/stem
-                        self.totalvocab_stemmed.extend(allwords_stemmed) #extend the 'totalvocab_stemmed' list
-                        lemma = self.lemmatizer(self.totalvocab_stemmed)
-                        self.lemma.extend(lemma)
-
-                    elif self.lang == "pt":
-                        stemmer = SnowballStemmer("portuguese")
-                        allwords_stemmed = self.tokenize_and_stem(text, stemmer) #for each item in 'synopses', tokenize/stem
-                        self.totalvocab_stemmed.extend(allwords_stemmed) #extend the 'totalvocab_stemmed' list
-                        lemma = self.lemmatizer(self.totalvocab_stemmed)
-                        self.lemma.extend(lemma)
-                else:
-                    allwords_tokenized = self.tokenize_only(text)
-                    self.totalvocab_tokenized.extend(allwords_tokenized)
-                    if lemma:
-                        lemma = self.lemmatizer(self.totalvocab_tokenized)
-                        self.lemma.extend(lemma)
-        print('Text Processing successful!')
