@@ -1,8 +1,6 @@
 #%%
 from packages import PDFPage, PDFResourceManager, TextConverter, PDFPageInterpreter, io, LAParams, detect_langs, detect
 from paths import *
-import time
-
 
 class Parser2txt(Paths):
 
@@ -10,7 +8,6 @@ class Parser2txt(Paths):
         #Main.__init__(self)
         super().__init__(self)
         self.folder = folder
-        self.documents = None
 
     def loadClass(self):
         print("Loaded Parser class!")
@@ -30,22 +27,21 @@ class Parser2txt(Paths):
     def getListSize(self, x):
         return len(x)
 
-    def langDetector(self,i=0):
-        if self.documents and len(self.documents) != 0:
-            return detect(self.documents[i][1])
-        else: return detect(self.text)
-
     def pdf2text(self, filename, i):
         rsrcmgr = PDFResourceManager()
         retstr = io.StringIO()
         codec = 'utf-8'
         laparams = LAParams()
         device = TextConverter(rsrcmgr, retstr, codec=codec, laparams=laparams)
+        # fp = open(self.folder + self.pdfName, 'rb')
         fp = open(self.getFilePath(filename, i), 'rb')
         interpreter = PDFPageInterpreter(rsrcmgr, device)
+
         for page in PDFPage.get_pages(fp, pagenos=set(), maxpages=0, password="",caching=True, check_extractable=True):
             interpreter.process_page(page)
+
         self.text = retstr.getvalue()
+
         fp.close()
         device.close()
         retstr.close()
@@ -72,19 +68,18 @@ class Parser2txt(Paths):
         self.filenames, _ = self.getPdfs()
 
         for i, filename in enumerate(self.filenames):
-            time_in = time.time()
             self.pdf2text(filename, i)
-            with open(outFolder + filename[:-4] + '.txt', 'w') as f_out:
+            f_out = open(outFolder + filename[:-4] + '.txt', 'w')
             # f_out = open(self.getFilePath(filename, i)[:-4] + '.txt', 'w')
-                f_out.write(self.text)
-                f_out.close()
-            sec = str(round(time.time() - time_in, 1)) + " seconds |"
-            print(sec, "Doc Num:", i,
-                "| Lang:", self.langDetector(i),
-                '| Written to:',
-                outFolder + filename[:-4] + '.txt',
-                '\n')
+            f_out.write(self.text)
+            f_out.close()
+            print("Doc Num:",i ,'| Written to:', self.getFilePath(filename, i)[:-4] + '.txt','\n')
+            break
+        pass
 
+    def langDetector(self,i=0):
+        if len(self.documents) == 0:
+            return detect(self.documents[i][1])
 
-
+        
     
