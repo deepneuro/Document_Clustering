@@ -5,6 +5,7 @@ from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
 from pdfminer.pdfpage import PDFPage
 from pdfminer.converter import TextConverter
 from pdfminer.layout import LAParams
+from langdetect import detect
 
 
 def pdf2string(path):
@@ -15,7 +16,7 @@ def pdf2string(path):
     """
 
     file_in = open(path, 'rb')
-    # Create a PDF interpreter object.
+    # Create a PDF interpreter object. (pdfminer)
     retstr = io.StringIO()
     rsrcmgr = PDFResourceManager()
     device = TextConverter(rsrcmgr, retstr, codec='utf-8', laparams=LAParams())
@@ -38,7 +39,16 @@ def string2txt(string, path):
     :return: File created
     """
 
-    file_out = open(path, 'w')
-    file_out.write(string)
-    file_out.close()
+    # Writes the string with the encoding wanted
+    with open(path, 'w', encoding='utf-8') as file_out:
+        file_out.write(string)
+        file_out.close()
 
+
+def detect_language(string):
+    """
+    For a given string, returns the language it is writen in.
+    :param string: the string to be analysed
+    :return: the language detected (string)
+    """
+    return detect(string)
