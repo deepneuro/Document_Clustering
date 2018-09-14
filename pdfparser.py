@@ -6,9 +6,6 @@ from pdfminer.pdfpage import PDFPage
 from pdfminer.converter import TextConverter
 from pdfminer.layout import LAParams
 
-import time
-
-
 
 def pdf2string(path):
     """
@@ -17,7 +14,7 @@ def pdf2string(path):
     :return: string of the pdf file
     """
 
-    fp = open(path, 'rb')
+    file_in = open(path, 'rb')
     # Create a PDF interpreter object.
     retstr = io.StringIO()
     rsrcmgr = PDFResourceManager()
@@ -25,10 +22,23 @@ def pdf2string(path):
     interpreter = PDFPageInterpreter(rsrcmgr, device)
 
     # Process each page contained in the document.
-    for page in PDFPage.get_pages(fp):
+    for page in PDFPage.get_pages(file_in):
         interpreter.process_page(page)
 
     data = retstr.getvalue()
 
     return data
+
+
+def string2txt(string, path):
+    """
+    From a given string, creates a .txt file on the given path.
+    :param string: The string to be converted to .txt
+    :param path: The path of the .txt file
+    :return: File created
+    """
+
+    file_out = open(path, 'w')
+    file_out.write(string)
+    file_out.close()
 

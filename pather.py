@@ -1,3 +1,4 @@
+import os
 import glob
 
 # Main objective:
@@ -46,7 +47,13 @@ def create_directory(paths, directories):
     From a list of paths, create inside each path a group of subdirectories.
     :param paths: paths to have new directories
     :param directories: new directories to be added
-    :return: Confirmation of success
+    :return: Directory created
     """
-    # TODO make this function, with same functionality as Emanuel's
-    return None
+
+    for directory in directories:
+        for path in paths:
+            new_path = directory + path
+            try:  # Try to make the desired path
+                os.makedirs(new_path)
+            except OSError:  # Passes if the path already exists
+                pass
