@@ -17,8 +17,8 @@ if __name__ == "__main__":
     """
     print("Loaded main class\n")
     
-    cv_path = r"/Users/emanuel/Desktop/Document_Clustering"
-    #cv_path = r"/home/emanuel/Desktop/cvs"
+    # cv_path = r"/Users/emanuel/Desktop/Document_Clustering"
+    cv_path = r"/home/emanuel/Desktop/cvs"
     
     # cv_path = r"C:\Users\sergiojesus\DWesktop\Coisas da Alvita\CV\4-Abril_14"
 

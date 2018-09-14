@@ -35,6 +35,7 @@ class Pre_processing(Parser2txt):
         return self.totalvocab_tokenized, self.totalvocab_stemmed, self.lemma
 
     def tokenize_and_stem(self, text, lemmatize=True):
+        self.lang = self.langDetector_tokens(text)
     # first tokenize by sentence, then by word to ensure that punctuation is caught as it's own token
         tokens = [word for sent in nltk.sent_tokenize(text) for word in nltk.word_tokenize(sent)]
         filtered_tokens = []
@@ -50,7 +51,7 @@ class Pre_processing(Parser2txt):
                     filtered_tokens.append(token)
         stems = [stemmer.stem(t) for t in filtered_tokens]
         if lemmatize:
-            print("Applying Lemmatizer...")
+            # print("Applying Lemmatizer...")
             self.lemmaDoc = self.lemmatizer(stems)
             return self.lemmaDoc
         return stems
@@ -99,6 +100,7 @@ class Pre_processing(Parser2txt):
             for text in self.documents[i][1:]:
                 if stem:
                     if self.lang == "en" and lemma:
+                        stemmer = SnowballStemmer("english")
                         allwords_stemmed = self.tokenize_and_stem(text, stemmer) #for each item in 'synopses', tokenize/stem
                         self.totalvocab_stemmed.extend(allwords_stemmed) #extend the 'totalvocab_stemmed' list
                         lemma = self.lemmatizer(self.totalvocab_stemmed)

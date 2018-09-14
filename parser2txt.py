@@ -44,6 +44,9 @@ class Parser2txt(Paths):
             return detect(self.documents[i][1])
         else: return detect(self.text)
 
+    def langDetector_tokens(self, text):
+        return detect(text)
+
     def pdf2text(self, filename, i):
         rsrcmgr = PDFResourceManager()
         retstr = io.StringIO()
@@ -66,19 +69,19 @@ class Parser2txt(Paths):
 
     def docLists(self):
         self.documents = []
-        txt = []
+        self.txtOnly = []
         self.filenames, self.folders = self.getPdfs()
         for i, filename in enumerate(self.filenames):
             self.pdf2text(filename, i)
             # print(self.text)
             self.documents.append([filename])
             self.documents[i].append(self.text)
-            txt.append(self.text)
+            self.txtOnly.append(self.text)
             print("document language:", self.langDetector(i))
             if i < 10: print('Doc Num:',i,' | Filename:', filename,)
             else: print('Doc Num:',i,'| Filename:', filename)
         print("Pdf2List completed!")
-        return self.documents
+        return self.documents, self.txtOnly
 
     def outputTxt(self):
         outFolder = self.makeFolder(self.folder + r'/outputTxt')

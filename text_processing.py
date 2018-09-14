@@ -18,28 +18,23 @@ class TextProcessing(Pre_processing):
         return self.documents
 
     def corpus(self):
-        self.documents = self.docLists()   
-        for i, text in enumerate(self.documents):
-            self.text = text[1:][0]
-            self.vectorizer(i)
-            self.the_matrix(i)
+        self.documents, self.textOnly = self.docLists()
+        self.vectorizer()
+        self.the_matrix()
+        # for i, text in enumerate(self.documents):
+        #     self.text = text[1:][0]
+
+        #     self.the_matrix(i)
+
         return self.getMatrix()
 
-    def vectorizer(self, i):
-        self.lang = self.langDetector(i)
-        if self.lang == "en":
-            self.tfidf_vectorizer = TfidfVectorizer(max_df=0.8, max_features=200000,
-                                 min_df=0.2, stop_words='english',
+    def vectorizer(self):
+        self.tfidf_vectorizer = TfidfVectorizer(max_features=200000,
+                                 stop_words='english',
                                  use_idf=True, tokenizer=self.tokenize_and_stem, ngram_range=(1,1), norm='l2')
-            return self.tfidf_vectorizer
-        elif self.lang == "pt":
-            self.tfidf_vectorizer = TfidfVectorizer(max_df=1, max_features=200000,
-                                 min_df=0.1, stop_words='english',
-                                 use_idf=True, tokenizer=self.tokenize_and_stem, ngram_range=(1,1), norm='l2')
-            return self.tfidf_vectorizer
 
-    def the_matrix(self,i):
-        self.tfidf_matrix = self.vectorizer(i).fit_transform([self.text])
+    def the_matrix(self):
+        self.tfidf_matrix= self.tfidf_vectorizer.fit_transform(self.textOnly)
 
     def getMatrixShape(self):
         return self.tfidf_matrix.shape
