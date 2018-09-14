@@ -85,6 +85,9 @@ class Parser2txt(Paths):
         return self.documents, self.txtOnly
 
     def outputTxt(self):
+        self.txt_paths = []
+        self.txt_filenames = []
+
         outFolder = self.makeFolder(self.folder + r'/outputTxt')
         self.filenames, _ = self.getPdfs()
 
@@ -94,7 +97,18 @@ class Parser2txt(Paths):
             # f_out = open(self.getFilePath(filename, i)[:-4] + '.txt', 'w')
             f_out.write(self.text)
             f_out.close()
-            print("Doc Num:",i ,'| Written to:', self.getFilePath(filename, i)[:-4] + '.txt','\n')
+            # print("Doc Num:",i ,'| Written to:', self.getFilePath(filename, i)[:-4] + '.txt','\n')
+            self.txt_paths.append(outFolder + filename[:-4] + '.txt')
+            self.txt_filenames.append(str(outFolder + filename[:-4] + '.txt').split('/')[-1])
+            print("Doc Num:",i ,'| Written to:', outFolder + filename[:-4] + '.txt','\n')
 
-        
-    
+    def dump_txtPaths(self):
+        from sklearn.externals import joblib
+        joblib.dump([self.txt_paths,self.txt_filenames], 'doc_txtPaths.pkl')
+        print("Txt filenames and paths saved!")
+
+    def load_txtPaths(self):
+        from sklearn.externals import joblib
+        self.txt_paths,self.txt_filenames = joblib.load('doc_txtPaths.pkl')
+        return self.txt_paths,self.txt_filenames
+

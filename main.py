@@ -1,5 +1,4 @@
 #%%
-print("dssa")
 from packages import Parser2txt, Paths, Pre_processing, TextProcessing, Clustering
 
 # class Main():
@@ -30,6 +29,12 @@ if __name__ == "__main__":
     # wizard, bacon = gandalf.getPdfs()
 
     # parser.outputTxt()
+    # parser.dump_txtPaths()
+
+    filename, pathss = parser.load_txtPaths()
+
+    print(filename)
+    print(pathss)
 
     def test1():
         documents = parser.docLists()
@@ -69,7 +74,7 @@ if __name__ == "__main__":
 
     # docs = test1()
     # test2(docs)
-    #test3()
+    # test3()
     # test4()
-    test5()
+    # test5()
     

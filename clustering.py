@@ -73,7 +73,7 @@ class Clustering(TextProcessing):
                 print(' %s' % vocab_frame.ix[terms[ind].split(' ')].values.tolist()[0][0].encode('utf-8', 'ignore'), end=',')
             print() #add whitespace
             print() #add whitespace
-            print("Cluster %d titles:" % i, end='')
+            print("Cluster %d Filenames:" % i, end='')
             for title in frame.ix[i]['filename'].values.tolist():
                 print(' %s,' % title, end='')
             print() #add whitespace
