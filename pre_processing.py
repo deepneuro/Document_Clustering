@@ -1,17 +1,21 @@
 import nltk, spacy, re
 from nltk.stem.snowball import SnowballStemmer
 from nltk.stem import WordNetLemmatizer
-import spacy.lang.en.stop_words, spacy.lang.pt.stop_words, spacy.lang.en.lemmatizer, spacy.lang.pt.lemmatizer
+import spacy.lang.en.stop_words, spacy.lang.pt.stop_words
+# import spacy.lang.en.lemmatizer, spacy.lang.pt.lemmatizer
 import pickle
 from parser2txt import *
 
 class Pre_processing(Parser2txt):
 
-    def __init__(self, documents=None, lang=None):
+    def __init__(self, documents=None, lang=None, textOnly=None):
         self.documents = documents
         self.lang = lang
+        self.textOnly = textOnly
         if self.documents is None:
             self.documents = []
+        if self.textOnly is None:
+            self.textOnly = []
 
     def preparation(self):
         # nlp = spacy.load('xx')
@@ -34,7 +38,7 @@ class Pre_processing(Parser2txt):
             self.totalvocab_tokenized, self.totalvocab_stemmed, self.lemma = pickle.load(f)
         return self.totalvocab_tokenized, self.totalvocab_stemmed, self.lemma
 
-    def tokenize_and_stem(self, text, lemmatize=True):
+    def tokenize_and_stem(self, text, lemmatize=True, stem=False):
         self.lang = self.langDetector_tokens(text)
     # first tokenize by sentence, then by word to ensure that punctuation is caught as it's own token
         tokens = [word for sent in nltk.sent_tokenize(text) for word in nltk.word_tokenize(sent)]
@@ -49,12 +53,17 @@ class Pre_processing(Parser2txt):
                 stemmer = SnowballStemmer("english")
                 if re.search('[a-zA-Z]', token) and token not in spacy.lang.en.stop_words.STOP_WORDS and len(token)>2:
                     filtered_tokens.append(token)
-        stems = [stemmer.stem(t) for t in filtered_tokens]
+        if stem:
+            stems = [stemmer.stem(t) for t in filtered_tokens]
+            if lemmatize:
+                # print("Applying Lemmatizer...")
+                self.lemmaDoc = self.lemmatizer(stems)
+                return self.lemmaDoc
+            else: return stems
         if lemmatize:
             # print("Applying Lemmatizer...")
-            self.lemmaDoc = self.lemmatizer(stems)
+            self.lemmaDoc = self.lemmatizer(filtered_tokens)
             return self.lemmaDoc
-        return stems
 
     def tokenize_only(self, text, lemmatize=False):
         # first tokenize by sentence, then by word to ensure that punctuation is caught as it's own token
@@ -89,7 +98,7 @@ class Pre_processing(Parser2txt):
                 else: lemma.append(token)
         return lemma
 
-    def text_process(self, stem=True, lemma=True):
+    def text_process(self, stem=False, lemma=True):
         self.totalvocab_stemmed = []
         self.totalvocab_tokenized = []
         self.lemma = []
@@ -118,5 +127,6 @@ class Pre_processing(Parser2txt):
                     if lemma:
                         lemma = self.lemmatizer(self.totalvocab_tokenized)
                         self.lemma.extend(lemma)
+        return self.totalvocab_tokenized, self.totalvocab_stemmed, self.lemma
         print('Text Processing successful!')
 

@@ -1,11 +1,12 @@
 #%%
-from packages import Parser2txt, Paths, Pre_processing, TextProcessing
+print("dssa")
+from packages import Parser2txt, Paths, Pre_processing, TextProcessing, Clustering
 
-class Main():
+# class Main():
 
-    def __init__(self):
-        # Parser.__init__(self)
-        pass
+#     def __init__(self):
+#         # Parser.__init__(self)
+#         pass
 
 if __name__ == "__main__":
     """
@@ -44,8 +45,21 @@ if __name__ == "__main__":
 
     def test3():
         pre = Pre_processing()
-        a, b, c = pre.loadObjs()
+        _, _, c = pre.loadObjs()
         print(c)
+
+    def test4():
+        x = TextProcessing(cv_path)
+        x.corpus()
+        x.saveTFIDF()
+
+    def test5():
+        y = Clustering(cv_path)
+        y.load_tfidf()
+        y.distance()
+        y.k_means()
+        y.clusters()
+        y.top_terms()
 
     # pre.preparation()
     # print(pre.getTokenized())
@@ -56,7 +70,6 @@ if __name__ == "__main__":
     # docs = test1()
     # test2(docs)
     #test3()
-
-    x = TextProcessing(cv_path)
-    #print(x.docs())
-    print(x.corpus())
+    # test4()
+    test5()
+    

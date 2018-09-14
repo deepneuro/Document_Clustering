@@ -70,7 +70,8 @@ class Parser2txt(Paths):
     def docLists(self):
         self.documents = []
         self.txtOnly = []
-        self.filenames, self.folders = self.getPdfs()
+        if len(self.filenames) == 0:
+            self.filenames, self.folders = self.getPdfs()
         for i, filename in enumerate(self.filenames):
             self.pdf2text(filename, i)
             # print(self.text)
@@ -94,8 +95,6 @@ class Parser2txt(Paths):
             f_out.write(self.text)
             f_out.close()
             print("Doc Num:",i ,'| Written to:', self.getFilePath(filename, i)[:-4] + '.txt','\n')
-            break
-        pass
 
         
     

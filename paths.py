@@ -1,6 +1,8 @@
 #%%
-from packages import glob
+from packages import glob, os, errno
+
 class Paths():
+
     def __init__(self, folder, filenames=None, subfolders=None, folders=None):
         self.folder = folder
         self.filenames = filenames
@@ -31,7 +33,6 @@ class Paths():
         return self.filenames, self.folders
     
     def makeFolder(self, directory):
-        from packages import glob, os, errno
         try:
             os.makedirs(directory)
             print(directory, 'created!')
