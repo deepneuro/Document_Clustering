@@ -26,7 +26,7 @@ def write_txt_documents(path):
     directory_list = pather.return_first_elements(path_list)
     # Find the files' name
     file_list = pather.return_last_element(path_list)
-    timer = time.time() # TODO remove
+    timer = time.time()  # TODO remove
 
     exception_list = list()
 

@@ -1,0 +1,215 @@
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\05-Maio 2016\Amilton Bumba Mascote.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\05-Maio 2016\Diana Patrícia da Silva Lourenço.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\05-Maio 2016\Dimetra Ip Air Interface Motorola.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\05-Maio 2016\Eurico Fábio dos Santos Batoca.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\05-Maio 2016\Joaquim Rodolfo Azevedo Maia.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\05-Maio 2016\José Domingos Barata.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\05-Maio 2016\João Pedro Fernandes Farinha de Oliveira Martins.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\05-Maio 2016\Leandra Maria Costa Rosa.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\05-Maio 2016\Maria José Paulino.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\05-Maio 2016\Mónica Paulo Duarte.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\05-Maio 2016\Osvaldo Dinis Vieira Lopes da Paixão.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\05-Maio 2016\Ricardo Assunção.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\05-Maio 2016\Ricardo José Silva Magalhães.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\05-Maio 2016\Tito Santos.pdf
+Unsupported predictor: 2 ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\05-Maio 2016\Valdemar Leiras.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\06-Junho 2016\Bruno José Fernandes Gonçalves.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\06-Junho 2016\Edmundo Magano.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\06-Junho 2016\Ficha de Aluno Mestrado.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\06-Junho 2016\Gonçalo Filipe Simões Pereira.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\06-Junho 2016\Jacinto Jorge Martins Barbosa.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\06-Junho 2016\LENIVALTER Cirino dos Santos.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\06-Junho 2016\Pedro Alexandre Roldão Alves.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\07-julho 2016\Ana Luísa Silva Costa.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\07-julho 2016\Cátia Caetano.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\07-julho 2016\Jose Domingos Barata.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\07-julho 2016\João Paulo Gomes dos Reis Ferreira.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\07-julho 2016\Mafalda Massada.pdf
+Text extraction is not allowed: <_io.BufferedReader name='C:\\Users\\sergiojesus\\Desktop\\Coisas da Alvita\\CV\\07-julho 2016\\Pedro Leite Pereira.pdf'> ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\07-julho 2016\Pedro Leite Pereira.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\08-agosto 2016\Arthur Leomil.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\08-agosto 2016\Jorge da Silva.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\08-agosto 2016\João Maximino.pdf
+argument of type 'PSLiteral' is not iterable ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\08-agosto 2016\Magno Diogo Moreira da Costa.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\08-agosto 2016\Marta Pereira Marques de Botelho.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\08-agosto 2016\MSc Nuno Malfeito.PDF
+Text extraction is not allowed: <_io.BufferedReader name='C:\\Users\\sergiojesus\\Desktop\\Coisas da Alvita\\CV\\08-agosto 2016\\Pedro Leite Pereira.pdf'> ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\08-agosto 2016\Pedro Leite Pereira.pdf
+Text extraction is not allowed: <_io.BufferedReader name='C:\\Users\\sergiojesus\\Desktop\\Coisas da Alvita\\CV\\08-agosto 2016\\Tiago J. Pastor Costa Machado.pdf'> ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\08-agosto 2016\Tiago J. Pastor Costa Machado.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\09-Setembro 2015\Maria João Borges Fernandes.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\10-Outubro 2015\António Manuel Ferreira Saraiva.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\10-Outubro 2015\Hamdi Hamani.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\10-Outubro 2015\Manuel Gomes Ferreira.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\10-Outubro 2015\Maria João Borges Fernandes.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\10-Outubro 2015\Miguel Ângelo dos Santos Valente Duarte.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\10-Outubro 2015\Nuno Carlos Firmino André.pdf
+Text extraction is not allowed: <_io.BufferedReader name='C:\\Users\\sergiojesus\\Desktop\\Coisas da Alvita\\CV\\10-outubro 2016\\César Silva.pdf'> ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\10-outubro 2016\César Silva.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\10-outubro 2016\Leandro Soares.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\10-outubro 2016\Master degree certificate.pdf
+Text extraction is not allowed: <_io.BufferedReader name='C:\\Users\\sergiojesus\\Desktop\\Coisas da Alvita\\CV\\10-outubro 2016\\Pedro Miguel Ferreira.pdf'> ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\10-outubro 2016\Pedro Miguel Ferreira.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\10-outubro 2016\Pedro Romba.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\10-outubro 2016\Ricardo Emanuel Rodrigues Peão.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\10-outubro 2016\Ricardo José Silva Magalhães.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\10-outubro 2016\Virgílio Morais.pdf
+Text extraction is not allowed: <_io.BufferedReader name='C:\\Users\\sergiojesus\\Desktop\\Coisas da Alvita\\CV\\10-Outubro_14\\António Conde.pdf'> ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\10-Outubro_14\António Conde.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\10-Outubro_14\Fernando Fernandes.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\10-Outubro_14\Joana Moutinho.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\11-Novembro 2015\António José Nogueira Rocha Castro.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\11-Novembro 2015\Camilo Manuel Branco Coelhoso Moreira.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\11-Novembro 2015\Carlos Eduardo Pinto Ramos Pereira do Nascimento.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\11-Novembro 2015\Cátia Alexandra Carvalho Fernandes.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\11-Novembro 2015\Filipe Manuel da Cunha Maia.pdf
+Text extraction is not allowed: <_io.BufferedReader name='C:\\Users\\sergiojesus\\Desktop\\Coisas da Alvita\\CV\\11-Novembro 2015\\Francisco José da Silva e Sousa Ribeiro Lopes.pdf'> ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\11-Novembro 2015\Francisco José da Silva e Sousa Ribeiro Lopes.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\11-Novembro 2015\Jorge Dionísio Moreira Carneiro.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\11-Novembro 2015\José Carlos da Trindade Santos.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\11-Novembro 2015\João Paulo Lopes Goulart.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\11-Novembro 2015\Leandra Maria Costa Rosa.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\11-Novembro 2015\Mafumeira Sul project Award.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\11-Novembro 2015\Miguel Ângelo dos Santos Valente Duarte.pdf
+Text extraction is not allowed: <_io.BufferedReader name='C:\\Users\\sergiojesus\\Desktop\\Coisas da Alvita\\CV\\11-Novembro 2015\\Nelson João Seuanes de Magalhães.pdf'> ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\11-Novembro 2015\Nelson João Seuanes de Magalhães.pdf
+Text extraction is not allowed: <_io.BufferedReader name='C:\\Users\\sergiojesus\\Desktop\\Coisas da Alvita\\CV\\11-Novembro 2015\\Pedro Leite Pereira.pdf'> ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\11-Novembro 2015\Pedro Leite Pereira.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\11-Novembro 2015\Raquel Machado.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\11-Novembro 2015\Sandra Cristina Correia Gonçalves Estanislau.pdf
+Text extraction is not allowed: <_io.BufferedReader name='C:\\Users\\sergiojesus\\Desktop\\Coisas da Alvita\\CV\\11-Novembro 2015\\Sandra Isabel Pires Vieira.pdf'> ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\11-Novembro 2015\Sandra Isabel Pires Vieira.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\11-Novembro 2015\Sara Lopes da Silva.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\11-Novembro 2015\Sebastião Alves dos Santos.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\11-Novembro 2015\Sérgio Lopes.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\11-Novembro 2015\Tiago Filipe Costa Cruz.pdf
+Text extraction is not allowed: <_io.BufferedReader name='C:\\Users\\sergiojesus\\Desktop\\Coisas da Alvita\\CV\\11-novembro 2016\\António Conde.pdf'> ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\11-novembro 2016\António Conde.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\11-novembro 2016\Luis Miguel Dias Martins dos Santos.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\11-novembro 2016\Marta Pereira Marques de Botelho.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\12 - dezembro 2016\Carlos Miguel Tavares Moreira.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\12 - dezembro 2016\João Carlos Santos Costa Silva.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\12 - dezembro 2016\João Sousa.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\12-Dezembro 2015\José Pedro Ridgway Ortiz Modesto.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\5-Maio_14\Cláudia Isabel Guerreiro Cunha.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\5-Maio_14\Flynn Luke Walker.pdf
+Text extraction is not allowed: <_io.BufferedReader name='C:\\Users\\sergiojesus\\Desktop\\Coisas da Alvita\\CV\\5-Maio_14\\Pedro da Gama Perelra.pdf'> ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\5-Maio_14\Pedro da Gama Perelra.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\6-Junho 2015\Carlos Eduardo Pinto Ramos Pereira do Nascimento.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\6-Junho 2015\Joel Hamilton de Carvalho Francisco.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\7-Julho 2015\Ana da Costa Roriz.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\7-Julho 2015\José Carlos da Trindade Santos.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\7-Julho 2015\João Carlos Nogueira Casaca.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\8-Agosto_14\Eunice Quintas.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\9-setembro 2016\Ana Isabel Mateus Paiva.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\9-setembro 2016\Bruno Viana.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\9-setembro 2016\E. João S. Martins.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\9-setembro 2016\Ines Susana Ribeiro Viana.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\9-setembro 2016\Jorge Manuel Ribeiro Santos.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\9-setembro 2016\Paula Cristina Santos.pdf
+Text extraction is not allowed: <_io.BufferedReader name='C:\\Users\\sergiojesus\\Desktop\\Coisas da Alvita\\CV\\9-setembro 2016\\Sérgio M. Gonçalves.pdf'> ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\9-setembro 2016\Sérgio M. Gonçalves.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\9-setembro 2016\Vasco Teixeira.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\9-setembro 2016\Vasco Vieira.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\Administrativo\José Mário Dias Marques_01_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\Administrativo\Paulo Manuel Antunes_02_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\agosto 2017\Melhor aluno de Curso_08_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\agosto 2017\Mohamed Malek Chouchene_08_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\agosto 2017\Pedro Miguel Assunção Pereirinha_08_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\Automação controlo E&I\Andreia Fátima da Costa Barbosa_01_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\Civil\Artur Santos_10_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\Civil\Claudine Viegas Laurência_11-2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\Civil\Cláudia Maria Pinto Ferreira_06_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\Civil\João Gonçalo Paulo Cordeiro_07_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\Civil\Marco Paulo Costa Sobrinho Correia_11-2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\Civil\Pedro Jorge Monteiro da Costa_01_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\Civil\Rui Miguel Pereira Gameiro_11-2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\Desenhadores\Ricardo Fernandes_02_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\Designer\Hugo Torres Reboredo_02_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\Designer\Hugo Torres Reboredo_03_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\Designer\Juliana Rodriguez_03_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\Designer\Leandro Soares_01_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\Designer\Miguel Moscoso_03_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\Designer\Márcia Gomes Barros_03_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\Designer\Márcio Pinto_02_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\Designer\Nádia Neves_03_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\Designer\Pedro Ferreira Fonseca_03_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\Designer\Ricardo Filipe Guedes_03_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\Designer\Virginie Carvalho__02_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\Dezembro 2017\Claudia Pereira_12-2017.pdf
+Invalid dictionary construct: [/'S', /'URI', /'URI', b'http://pt.wikipedia.org/wiki/Concentra%C3%A7%C3%A3o_(qu%C3%ADmica', /b')'] ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\Dezembro 2017\Cláudio Candido de Oliveira_12-2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\Dezembro 2017\Horizons Training_12-2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\Dezembro 2017\José Pedro Costa_12-2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\Dezembro 2017\José Pedro Costa_12_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\Dezembro 2017\Luís Miguel Carita Dias_12-2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\Dezembro 2017\Mickey Alison Moreira Paim_12-2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\Dezembro 2017\Ricardo Simão Rodrigues da Devesa_12-2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\Dezembro 2017\Ângelo João Chicopiti_12-2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\Eletrotécnico\Hugo Daniel Zava_03_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\Elevadores\Fernando Tomada_02_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\Eólicas\António Maria Estêvão_Supervisor_05-2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\geral_2018\Curriculum_Daniel Viegas_.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\geral_2018\CV Isabel Guedes (1).pdf
+Text extraction is not allowed: <_io.BufferedReader name='C:\\Users\\sergiojesus\\Desktop\\Coisas da Alvita\\CV\\geral_2018\\CV-AC-2 _English-c.pdf'> ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\geral_2018\CV-AC-2 _English-c.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\geral_2018\CV_EN (1).pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\geral_2018\CV_H_lder Costa_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\geral_2018\Fernando Manuel de Vasconcelos Couto Geada.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\geral_2018\Hélder José Marques da Costa_09_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\geral_2018\Isabel Silva.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\geral_2018\Luis Nascimento.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\geral_2018\NOVO_Daniel Santos.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\geral_2018\Orlando Vicente.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\geral_2018\PsiCVL.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\geral_2018\Raquel Bernardo.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\geral_2018\Ricardo Simão Rodrigues Devesa_12-2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\geral_2018\Vera Franco.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\geral_2018\Ângela Silva.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\Gestão do Risco e Compliance\Anderleia Cristina dos Santos_06_2017.pdf
+Text extraction is not allowed: <_io.BufferedReader name='C:\\Users\\sergiojesus\\Desktop\\Coisas da Alvita\\CV\\Gestão do Risco e Compliance\\António Luís da Rocha Moreira_06_2017.pdf'> ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\Gestão do Risco e Compliance\António Luís da Rocha Moreira_06_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\Gestão do Risco e Compliance\Carlos Miguel Oliveira_02_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\Gestão do Risco e Compliance\Cária Sofia Cavaco Rocha_07_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\Gestão do Risco e Compliance\Jorge Manuel Monteiro Ferreira_11-2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\Gestão do Risco e Compliance\José Baltazar Matos_07_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\Gestão do Risco e Compliance\João Ramalho_07_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\Gestão do Risco e Compliance\Mónica Sofia Reis_01_2017.pdf
+Text extraction is not allowed: <_io.BufferedReader name='C:\\Users\\sergiojesus\\Desktop\\Coisas da Alvita\\CV\\Gestão do Risco e Compliance\\Pedro Miguel Rocha de Amaral_07_2017.pdf'> ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\Gestão do Risco e Compliance\Pedro Miguel Rocha de Amaral_07_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\IT\Sérgio Gabriel_07_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\junho 2017\Liliana Sofia Ferreira Mendes_06_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\junho 2017\Marta Pereira Marques de Botelho_06_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\junho 2017\Mestrado Arquitectura_06_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\junho 2017\Sergio Filipe Castelo Branco da Silva_06_2017.PDF
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\junho 2017\Soraia Costa_06_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\junho 2017\Thais Lobo dos Santos_06_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\maio 2017\Ana Filipa Pereira_05_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\maio 2017\Ana Maria Soares Batista_05_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\maio 2017\António Maria Salgado Martins Estevão_05_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\maio 2017\Cláudia Pereira_05_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\maio 2017\Daniela Mendes_05_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\maio 2017\David Silva_05_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\maio 2017\Diploma Mestrado_05_2017.pdf
+Text extraction is not allowed: <_io.BufferedReader name='C:\\Users\\sergiojesus\\Desktop\\Coisas da Alvita\\CV\\maio 2017\\João Daniel Pimenta Lopes_05_2017.pdf'> ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\maio 2017\João Daniel Pimenta Lopes_05_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\maio 2017\João Pacheco_05_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\maio 2017\Luis Manuel Jacinto do Nascimento_05_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\maio 2017\Luís Manuel Jacinto do Nascimento_05_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\maio 2017\Maria MArgarida Correia Conceição_05_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\maio 2017\Maria Rita_05_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\maio 2017\MastersDegreeCertificate_05_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\maio 2017\Olívia Fernanda Gonçalves Silva Faria_05_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\maio 2017\Organizaçao Emergência J. Leandro Neves_05_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\maio 2017\Orlando Vicente_05_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\maio 2017\Rita Isabel Santos Marques_05_2017.pdf
+Text extraction is not allowed: <_io.BufferedReader name='C:\\Users\\sergiojesus\\Desktop\\Coisas da Alvita\\CV\\maio 2017\\Sandra Isabel Pires Vieira_05_2017.pdf'> ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\maio 2017\Sandra Isabel Pires Vieira_05_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\maio 2017\Sérgio Luís Nogueira Moutinho_05_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\maio 2017\Virgílio Morais_05_2017.pdf
+Text extraction is not allowed: <_io.BufferedReader name='C:\\Users\\sergiojesus\\Desktop\\Coisas da Alvita\\CV\\Manutenção\\António Conde_01_2017.pdf'> ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\Manutenção\António Conde_01_2017.pdf
+Text extraction is not allowed: <_io.BufferedReader name='C:\\Users\\sergiojesus\\Desktop\\Coisas da Alvita\\CV\\Manutenção\\António Conde_03_2017.pdf'> ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\Manutenção\António Conde_03_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\Marketing\Ana Filipa Pereira_05_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\Marketing\Ana Filipa Pereira_06_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\Marketing\Bruno Paulino_07_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\Marketing\David Silva_05_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\Marketing\David Silva_06_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\Marketing\João Paulo Gomes dos Reis Ferreira_01_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\Marketing\João Sousa_01_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\Marketing\Marco Machado_01_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\Marketing\Ronny Alves Rangel_01_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\Mecânica\Alberto Gomes_08_2017.pdf
+Text extraction is not allowed: <_io.BufferedReader name='C:\\Users\\sergiojesus\\Desktop\\Coisas da Alvita\\CV\\Mecânica\\Cristiano Paias_01_2017.pdf'> ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\Mecânica\Cristiano Paias_01_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\Mecânica\Daniel Fernandes dos Santos_08_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\Mecânica\Paulo Oliveira_01_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\NDT\Hélder José Marques da Costa_09_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\QA - QC\Fernando Jorge Silva Ferreira_07_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\QA - QC\Hélder Filipe Mascarenhas_01_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\QA - QC\Ricardo Manuel de Oliveira Ferreira_07_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\RH\David Mateus_01_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\Setembro 2017\André Jerónimo Patrício Baptista_09-2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\Setembro 2017\Hélder José Marques da Costa_09-2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\Setembro 2017\Paula Cristina Campos Matos dos Santos_09-2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\Telecomunicações\Daniel Jerónimo_01_2017.pdf
+No features in text. ; C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV\Área Financeira\Célia Machado_03_2017.pdf
