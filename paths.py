@@ -23,6 +23,11 @@ class Paths():
         self.subfolders = glob.glob(self.folder + r"/**/*.pdf", recursive=True)
         return self.subfolders
 
+    def txt_subfolders(self):
+        self.subfolders = glob.glob(self.folder + r"/*/text_files/**/*.txt", recursive=True)
+        return self.subfolders
+
+
     def getPdfs(self):
         # paths = glob.glob(self.folder + r'/*.pdf')
         self.pdf_subfolders()
@@ -32,6 +37,16 @@ class Paths():
                 self.folders.append("/".join(x.split('/')[:-1]))
         return self.filenames, self.folders
     
+
+    def getTxts(self):
+        # paths = glob.glob(self.folder + r'/*.pdf')
+        self.txt_subfolders()
+        for x in self.subfolders:
+            if x.endswith('.txt'):
+                self.filenames.append(x.split('/')[-1])
+                self.folders.append("/".join(x.split('/')[:-1]))
+        return self.filenames, self.folders
+
     def makeFolder(self, directory):
         try:
             os.makedirs(directory)

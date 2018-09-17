@@ -107,6 +107,7 @@ class Pre_processing(Parser2txt):
         for i in range(len(self.documents)):
             self.lang = self.langDetector(i)
             for text in self.documents[i][1:]:
+                print("\nProcessing Doc Num:",i, "| Filename:", self.documents[i][0])
                 if stem:
                     if self.lang == "en" and lemma:
                         stemmer = SnowballStemmer("english")
@@ -128,5 +129,5 @@ class Pre_processing(Parser2txt):
                         lemma = self.lemmatizer(self.totalvocab_tokenized)
                         self.lemma.extend(lemma)
         return self.totalvocab_tokenized, self.totalvocab_stemmed, self.lemma
-        print('Text Processing successful!')
+        print('\nText Processing successful!\n')
 

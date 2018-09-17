@@ -37,12 +37,12 @@ from pdfminer.pdfdocument import PDFDocument
 from pdfminer.pdfinterp import resolve1
 import PyPDF2
 from langdetect import detect_langs, detect
-from plot import *
 
-from clustering import *
-from parser2txt import *
-from paths import *
-from text_processing import *
-from pre_processing import *
+# from paths import *
+# from parser2txt import *
+# from pre_processing import *
+# from text_processing import *
+# from clustering import *
+# from plot import *
 
 print("\n"+"\nPackage loaded Successfully!")

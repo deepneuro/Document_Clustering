@@ -12,7 +12,7 @@ class Clustering(TextProcessing):
         self.documents = documents
         self.num_clusters = num_clusters
         if self.num_clusters is None:
-            self.num_clusters = 5
+            self.num_clusters = 4
 
     def getTerms(self):
         terms = self.tfidf_vectorizer.get_feature_names()
@@ -31,6 +31,7 @@ class Clustering(TextProcessing):
         self.km.fit(self.tfidf_matrix)
 
     def clusters(self):
+        self.k_means()
         clusters = self.km.labels_.tolist()
         return clusters
 
@@ -48,11 +49,10 @@ class Clustering(TextProcessing):
         self.tfidf_vectorizer = joblib.load('vectorizer.pkl')
         print("TF-IDF Loaded!\n")
 
-
     def matrix2dataframe(self):
         cPaths = Paths(self.folder)
-        self.filenames, self.folders = cPaths.getPdfs()
-        self.documents, self.textOnly = self.docLists()
+        self.filenames, self.folders = cPaths.getTxts()
+        self.documents, self.textOnly = self.docTxtLists()
         docs_dict = { 'filename': self.filenames, 'txt': self.textOnly, 'cluster': self.clusters() }
         frame = pd.DataFrame(docs_dict, index = [self.clusters()] , columns = ['filename', 'cluster'])
         return frame

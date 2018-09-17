@@ -1,5 +1,6 @@
 #%%
-from packages import Parser2txt, Paths, Pre_processing, TextProcessing, Clustering
+# from packages import Parser2txt, Paths, Pre_processing, TextProcessing, Clustering, Plot
+import parser2txt, paths, pre_processing, text_processing, clustering, plot
 
 # class Main():
 
@@ -18,53 +19,45 @@ if __name__ == "__main__":
     print("Loaded main class\n")
     
     # cv_path = r"/Users/emanuel/Desktop/Document_Clustering"
-    cv_path = r"/home/emanuel/Desktop/cvs"
+    # cv_path = r"/home/emanuel/Desktop/cvs"
+    cv_path = r"/home/emanuel/Desktop/CV"
+
+
     
     # cv_path = r"C:\Users\sergiojesus\DWesktop\Coisas da Alvita\CV\4-Abril_14"
 
-    parser = Parser2txt(cv_path)
-    # lista = parser.docLists()
-    
-    # gandalf = Paths(cv_path)
-    # wizard, bacon = gandalf.getPdfs()
+    # parser = parser2txt.Parser2txt(cv_path)
 
+    # filenames, pathss = parser.load_txtPaths()
     # parser.outputTxt()
-    # parser.dump_txtPaths()
 
-    filename, pathss = parser.load_txtPaths()
-
-    print(filename)
-    print(pathss)
 
     def test1():
-        documents = parser.docLists()
+        # documents, _ = parser.docLists()
+        documents, _ = parser.docTxtLists()
         return documents
         # parser.saveObjs()
 
     def test2(documents):
         # documents = parser.loadObjs()
-        pre = Pre_processing(documents)
-
+        pre = pre_processing.Pre_processing(documents)
         pre.text_process(stem=False, lemma=True)
         pre.saveObjs()
 
     def test3():
-        pre = Pre_processing()
-        _, _, c = pre.loadObjs()
-        print(c)
-
-    def test4():
-        x = TextProcessing(cv_path)
+        x = text_processing.TextProcessing(cv_path)
         x.corpus()
         x.saveTFIDF()
 
-    def test5():
-        y = Clustering(cv_path)
+    def test4():
+        y = clustering.Clustering(cv_path)
         y.load_tfidf()
-        y.distance()
-        y.k_means()
-        y.clusters()
         y.top_terms()
+
+    def test5():
+        graph = plot.Plot(cv_path)
+        graph.load_tfidf()
+        graph.buildGraph()
 
     # pre.preparation()
     # print(pre.getTokenized())
@@ -74,7 +67,7 @@ if __name__ == "__main__":
 
     # docs = test1()
     # test2(docs)
-    # test3()
+    test3()
     # test4()
     # test5()
     

@@ -3,15 +3,17 @@ from pre_processing import *
 
 class TextProcessing(Pre_processing):
 
-    def __init__(self, folder, filenames=None, folders=None):
+    def __init__(self, folder, filenames=None, folders=None, errors=None):
         self.folder = folder
         self.filenames = filenames
         self.folders = folders
+        self.errors = errors
+        if self.errors == None:
+            self.errors = []
         if self.filenames is None:
             self.filenames = []
         if self.folders is None:
             self.folders = []
-
         super().__init__(self)
 
     def docs(self):
@@ -19,7 +21,7 @@ class TextProcessing(Pre_processing):
         return self.documents
 
     def corpus(self):
-        self.documents, self.textOnly = self.docLists()
+        self.documents, self.textOnly = self.docTxtLists()
         self.vectorizer()
         self.the_matrix()
         return self.getMatrix()
