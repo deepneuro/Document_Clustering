@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import matplotlib as mpl
 from sklearn.manifold import MDS
 import pandas as pd
+import mpld3
 
 class Plot(Clustering):
 
