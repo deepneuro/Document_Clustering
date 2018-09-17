@@ -59,6 +59,11 @@ if __name__ == "__main__":
         graph.load_tfidf()
         graph.buildGraph()
 
+    def test6():
+        graph = plot.Plot(cv_path)
+        graph.load_tfidf()
+        graph.buildGraph2()
+
     # pre.preparation()
     # print(pre.getTokenized())
 
