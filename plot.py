@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import matplotlib as mpl
 from sklearn.manifold import MDS
 import pandas as pd
+import mpld3
 
 class Plot(Clustering):
 
@@ -102,7 +103,7 @@ class Plot(Clustering):
         cluster_colors, cluster_names = self.setClusters()
 
         #create data frame that has the result of the MDS plus the cluster numbers and titles
-        df = pd.DataFrame(dict(x=xs, y=ys, label=setClusters(), title=self.filenames)) 
+        df = pd.DataFrame(dict(x=xs, y=ys, label=self.clusters(), title=self.filenames)) 
 
         #group by cluster
         groups = df.groupby('label')
