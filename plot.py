@@ -5,6 +5,7 @@ import matplotlib as mpl
 from sklearn.manifold import MDS
 import pandas as pd
 import mpld3
+import time
 
 class Plot(Clustering):
 
@@ -16,12 +17,25 @@ class Plot(Clustering):
         # convert two components as we're plotting points in a two-dimensional plane
         # "precomputed" because we provide a distance matrix
         # we will also specify `random_state` so the plot is reproducible.
+        t0 = time()
         self.dist = self.distance()
         mds = MDS(n_components=2, dissimilarity="precomputed", random_state=1)
-
         pos = mds.fit_transform(self.dist)  # shape (n_components, n_samples)
-
+        t1 = time()
+        print("MDS: %.2g sec" % (t1 - t0))
         xs, ys = pos[:, 0], pos[:, 1]
+        self.saveMDS(xs, ys)
+        return xs, ys
+    
+    def saveMDS(self, xs, ys):
+        from sklearn.externals import joblib
+        joblib.dump([xs,ys], 'mds.pkl')
+        print("saved xs and ys from MDS.fit_transform()")
+
+    def loadMDS(self):
+        from sklearn.externals import joblib
+        xs, ys = joblib.load('mds.pkl')
+        print("loaded xs and ys from MDS.fit_transform()")
         return xs, ys
 
     def setClusters(self):
@@ -48,17 +62,19 @@ class Plot(Clustering):
     def buildGraph(self):
         self.load_tfidf()
         cPaths = Paths(self.folder)
-        self.filenames, self.folders = cPaths.getPdfs()
-        xs, ys = self.create_MDS()
+        self.filenames, self.folders = cPaths.getTxts()
+        print("Got filenames and folders")
+        xs, ys = self.loadMDS()
+        # xs, ys = self.create_MDS()
+        print("MDS created!")
         cluster_colors, cluster_names = self.setClusters()
         #some ipython magic to show the matplotlib plots inline
-
+        print("Cluster set created!")
         #create data frame that has the result of the MDS plus the cluster numbers and titles
         df = pd.DataFrame(dict(x=xs, y=ys, label=self.clusters(), title=self.filenames))
-
+        print("Dataset created!")
         #group by cluster
         groups = df.groupby('label')
-
 
         # set up plot
         fig, ax = plt.subplots(figsize=(20, 11)) # set size
@@ -98,8 +114,9 @@ class Plot(Clustering):
     def buildGraph2(self):
         self.load_tfidf()
         cPaths = Paths(self.folder)
-        self.filenames, self.folders = cPaths.getPdfs()
-        xs, ys = self.create_MDS()
+        self.filenames, self.folders = cPaths.getTxts()
+        xs, ys = self.loadMDS()
+        # xs, ys = self.create_MDS()
         cluster_colors, cluster_names = self.setClusters()
 
         #create data frame that has the result of the MDS plus the cluster numbers and titles

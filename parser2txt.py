@@ -3,6 +3,7 @@ from packages import PDFPage, PDFResourceManager, TextConverter, PDFPageInterpre
 from paths import *
 import pickle
 import time
+import pandas as pd
 
 class Parser2txt(Paths):
 
@@ -61,7 +62,7 @@ class Parser2txt(Paths):
             return detect(text)
         except:
             self.errors.append(text)
-            
+
     # def writeErrors(self):
     #     with open('Errors.txt', 'a') as f:
     #         f.writelines(self.errors)
@@ -124,7 +125,16 @@ class Parser2txt(Paths):
             if i < 10: print('Doc Num:',i,' | Filename:', filename,)
             else: print('Doc Num:',i,'| Filename:', filename)
             # break
+        data = { 'filename': self.documents, 'txt': self.textOnly }
+        df = pd.DataFrame(data, columns=["filename", "txt"])
+        df.to_csv(self.folder + "/data.csv", sep=",")
         return self.documents, self.txtOnly
+
+    def getCSVData(self):
+        df = pd.read_csv(self.folder + "/data.csv")
+        self.documents = df.filenames
+        self.textOnly = df.text
+        return df
 
     def outputTxt(self):
         self.txt_paths = []

@@ -58,6 +58,7 @@ class Clustering(TextProcessing):
         return frame
 
     def top_terms(self):
+        self.load_tfidf()
         frame = self.matrix2dataframe()
         terms = self.getTerms()
         vocab_frame = self.getVocabFrame()

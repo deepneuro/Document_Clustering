@@ -56,12 +56,10 @@ if __name__ == "__main__":
 
     def test5():
         graph = plot.Plot(cv_path)
-        graph.load_tfidf()
         graph.buildGraph()
 
     def test6():
         graph = plot.Plot(cv_path)
-        graph.load_tfidf()
         graph.buildGraph2()
 
     # pre.preparation()
@@ -72,7 +70,7 @@ if __name__ == "__main__":
 
     # docs = test1()
     # test2(docs)
-    test3()
+    # test3()
     # test4()
     # test5()
-    
+    test6()

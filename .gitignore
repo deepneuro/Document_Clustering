@@ -13,3 +13,10 @@ __pycache__/pre_processing\.cpython-36\.pyc
 __pycache__/text_processing\.cpython-36\.pyc
 
 \.vscode/settings\.json
+
+mds.pkl
+objs.pkl
+Doc_objs.pkl
+vectorizer.pkl
+doc_txtPaths.pkl
+tfidf_matrix.pkl
