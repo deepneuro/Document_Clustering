@@ -9,8 +9,6 @@
 import pather
 import pdfparser
 
-import time
-
 
 def write_txt_documents(path):
     """
@@ -21,12 +19,11 @@ def write_txt_documents(path):
     """
 
     # Find the .pdf paths
-    path_list = pather.find_pdf_paths(path, 'pdf')
+    path_list = pather.find_paths(path, 'pdf')
     # Find the directories
     directory_list = pather.return_first_elements(path_list)
     # Find the files' name
     file_list = pather.return_last_element(path_list)
-    timer = time.time()  # TODO remove
 
     exception_list = list()
 
@@ -44,12 +41,8 @@ def write_txt_documents(path):
             text_path = new_directory + file_list[file_index][:-3] + 'txt'
             # Write the parsed pdf to the .txt file
             pdfparser.string2txt(text, text_path)
-            if file_index%20 == 0: # TODO remove
-                print(time.time() - timer)
-                timer = time.time()
-        except Exception as e:  # TODO remove
+
+        except Exception as e:
             exception_list.append([e, file])
-            print(e)
-            print(file)
 
     return exception_list

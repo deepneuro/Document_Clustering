@@ -6,7 +6,7 @@ import glob
 # Create inside these paths a directory for .txt files.
 
 
-def find_pdf_paths(initial_path, extension):
+def find_paths(initial_path, extension):
     """
     From a path, return all the  files of a given extension inside.
     :param initial_path: the initial directory of search
