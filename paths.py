@@ -24,7 +24,7 @@ class Paths():
         return self.subfolders
 
     def txt_subfolders(self):
-        self.subfolders = glob.glob(self.folder + r"/*/text_files/**/*.txt", recursive=True)
+        self.subfolders = glob.glob(self.folder + r"/*/text_files/*.txt", recursive=True)
         return self.subfolders
 
 

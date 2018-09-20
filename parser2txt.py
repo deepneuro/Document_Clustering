@@ -12,8 +12,9 @@ class Parser2txt(Paths):
         super().__init__(self)
         self.folder = folder
         self.errors = errors
-        if self.erros == None:
+        if self.errors == None:
             self.errors = []
+            
 
     def loadClass(self):
         print("Loaded Parser class!")
@@ -49,19 +50,22 @@ class Parser2txt(Paths):
             try:
                 return detect(self.documents[i][1])
             except:
-                print("ERROR AT FILE:", self.documents[i][0])
-                self.errors.append(self.documents[i][0])
+                # print("ERROR AT FILE:", self.documents[i][1:])
+                # self.errors.append(self.documents[0][i][1:])
+                return "None"
         else:
             try:
-                return detect(self.text)
+                return detect(self.txtOnly)
             except:
-                self.errors.append(self.text)
+                self.errors.append(self.txtOnly)
+                return "None"
 
     def langDetector_tokens(self, text):
         try:
             return detect(text)
         except:
             self.errors.append(text)
+            return "None"
 
     # def writeErrors(self):
     #     with open('Errors.txt', 'a') as f:
@@ -89,8 +93,9 @@ class Parser2txt(Paths):
 
     def openTxt(self, filename, i):
         with open(self.getFilePath(filename, i), 'r') as f:
-            lista_corpus = f.readlines()
-            self.text = ''.join(lista_corpus)
+            # lista_corpus = f.readlines()
+            # self.text = ''.join(lista_corpus)
+            self.text = f.read()
         return self.text
 
     def docLists(self):
@@ -122,19 +127,21 @@ class Parser2txt(Paths):
             self.documents[i].append(self.text)
             self.txtOnly.append(self.text)
             print("document language:", self.langDetector(i))
-            if i < 10: print('Doc Num:',i,' | Filename:', filename,)
-            else: print('Doc Num:',i,'| Filename:', filename)
-            # break
-        data = { 'filename': self.documents, 'txt': self.textOnly }
-        df = pd.DataFrame(data, columns=["filename", "txt"])
-        df.to_csv(self.folder + "/data.csv", sep=",")
+            print('Doc Num:',i,' | Filename:', filename)
+            # if i == 50:
+            #     break
+
+        # data = { 'filename': self.filenames, 'txt': self.txtOnly }
+        # df = pd.DataFrame(data, columns=["filename", "txt"])
+        # df.to_csv(self.folder + "/data.csv", sep=",", header=False)
         return self.documents, self.txtOnly
 
     def getCSVData(self):
         df = pd.read_csv(self.folder + "/data.csv")
-        self.documents = df.filenames
-        self.textOnly = df.text
-        return df
+        # filenames = df["filenames"]
+        # txtOnly = df["txt"]
+        # print(len(txtOnly))
+        # return filenames, txtOnly
 
     def outputTxt(self):
         self.txt_paths = []

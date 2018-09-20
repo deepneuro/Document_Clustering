@@ -103,31 +103,67 @@ class Pre_processing(Parser2txt):
         self.totalvocab_tokenized = []
         self.lemma = []
         # self.stopwords = nltk.corpus.stopwords.words('english')
-
-        for i in range(len(self.documents)):
+        # self.documents, self.txtOnly = self.docTxtLists()
+        # for i in range(len(self.documents)):
+        for i, text in enumerate(self.textOnly):
             self.lang = self.langDetector(i)
-            for text in self.documents[i][1:]:
-                print("\nProcessing Doc Num:",i, "| Filename:", self.documents[i][0])
-                if stem:
-                    if self.lang == "en" and lemma:
-                        stemmer = SnowballStemmer("english")
-                        allwords_stemmed = self.tokenize_and_stem(text, stemmer) #for each item in 'synopses', tokenize/stem
-                        self.totalvocab_stemmed.extend(allwords_stemmed) #extend the 'totalvocab_stemmed' list
-                        lemma = self.lemmatizer(self.totalvocab_stemmed)
-                        self.lemma.extend(lemma)
+            # for text in self.documents[i][1:]:
+                # print(text)
+            print("\nProcessing Doc Num:",i, "| Filename:", self.filenames[i])
+            if stem:
+                if self.lang == "en" and lemma:
+                    stemmer = SnowballStemmer("english")
+                    allwords_stemmed = self.tokenize_and_stem(text, stemmer) #for each item in 'synopses', tokenize/stem
+                    self.totalvocab_stemmed.extend(allwords_stemmed) #extend the 'totalvocab_stemmed' list
+                    lemma = self.lemmatizer(self.totalvocab_stemmed)
+                    self.lemma.extend(lemma)
 
-                    elif self.lang == "pt":
-                        stemmer = SnowballStemmer("portuguese")
-                        allwords_stemmed = self.tokenize_and_stem(text, stemmer) #for each item in 'synopses', tokenize/stem
-                        self.totalvocab_stemmed.extend(allwords_stemmed) #extend the 'totalvocab_stemmed' list
-                        lemma = self.lemmatizer(self.totalvocab_stemmed)
-                        self.lemma.extend(lemma)
-                else:
-                    allwords_tokenized = self.tokenize_only(text)
-                    self.totalvocab_tokenized.extend(allwords_tokenized)
-                    if lemma:
-                        lemma = self.lemmatizer(self.totalvocab_tokenized)
-                        self.lemma.extend(lemma)
+                elif self.lang == "pt":
+                    stemmer = SnowballStemmer("portuguese")
+                    allwords_stemmed = self.tokenize_and_stem(text, stemmer) #for each item in 'synopses', tokenize/stem
+                    self.totalvocab_stemmed.extend(allwords_stemmed) #extend the 'totalvocab_stemmed' list
+                    lemma = self.lemmatizer(self.totalvocab_stemmed)
+                    self.lemma.extend(lemma)
+            else:
+                allwords_tokenized = self.tokenize_only(text)
+                self.totalvocab_tokenized.extend(allwords_tokenized)
+                if lemma:
+                    lemma = self.lemmatizer(self.totalvocab_tokenized)
+                    self.lemma.extend(lemma)
         return self.totalvocab_tokenized, self.totalvocab_stemmed, self.lemma
         print('\nText Processing successful!\n')
 
+    def text_process_csv(self, stem=False, lemma=True):
+        self.totalvocab_stemmed = []
+        self.totalvocab_tokenized = []
+        self.lemma = []
+        # self.stopwords = nltk.corpus.stopwords.words('english')
+        filenames, text = self.getCSVData()
+
+        for i, filename in enumerate(filenames):
+            if i == len(filenames):
+                break
+            # for text in txtOnly:
+            self.lang = self.langDetector_tokens(text[i])
+            print("\nProcessing Doc Num:", i, "| Filename:", filename, "| lang:", self.lang)
+            if stem:
+                if self.lang == "en" and lemma:
+                    stemmer = SnowballStemmer("english")
+                    allwords_stemmed = self.tokenize_and_stem(text[i], stemmer) #for each item in 'synopses', tokenize/stem
+                    self.totalvocab_stemmed.extend(allwords_stemmed) #extend the 'totalvocab_stemmed' list
+                    lemma = self.lemmatizer(self.totalvocab_stemmed)
+                    self.lemma.extend(lemma)
+                elif self.lang == "pt":
+                    stemmer = SnowballStemmer("portuguese")
+                    allwords_stemmed = self.tokenize_and_stem(text[i], stemmer) #for each item in 'synopses', tokenize/stem
+                    self.totalvocab_stemmed.extend(allwords_stemmed) #extend the 'totalvocab_stemmed' list
+                    lemma = self.lemmatizer(self.totalvocab_stemmed)
+                    self.lemma.extend(lemma)
+            else:
+                allwords_tokenized = self.tokenize_only(text[i])
+                self.totalvocab_tokenized.extend(allwords_tokenized)
+                if lemma:
+                    lemma = self.lemmatizer(self.totalvocab_tokenized)
+                    self.lemma.extend(lemma)
+        return self.totalvocab_tokenized, self.totalvocab_stemmed, self.lemma
+        print('\nText Processing successful!\n')

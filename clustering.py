@@ -3,6 +3,7 @@ from sklearn.cluster import KMeans
 from sklearn.externals import joblib
 import pandas as pd
 from text_processing import *
+import sys
 
 class Clustering(TextProcessing):
 
@@ -12,15 +13,17 @@ class Clustering(TextProcessing):
         self.documents = documents
         self.num_clusters = num_clusters
         if self.num_clusters is None:
-            self.num_clusters = 4
+            self.num_clusters = 100
 
     def getTerms(self):
         terms = self.tfidf_vectorizer.get_feature_names()
         return terms
 
     def getVocabFrame(self):
-        totalvocab_tokenized, totalvocab_stemmed, lemma = self.text_process()
+        # totalvocab_tokenized, totalvocab_stemmed, lemma = self.text_process()
+        totalvocab_tokenized, totalvocab_stemmed, lemma = self.text_process(self.txtOnly, self.filenames)
         vocab_frame = pd.DataFrame({'words': lemma}, index = lemma)
+        vocab_frame.to_csv(self.folder + "/vocab_frame.csv", sep=",", header=False)
         return vocab_frame
 
     def distance(self):
@@ -29,18 +32,24 @@ class Clustering(TextProcessing):
     def k_means(self):
         self.km = KMeans(n_clusters=self.num_clusters)
         self.km.fit(self.tfidf_matrix)
+        self.dump_Kmeans()
 
     def clusters(self):
+        print("start k_means")
         self.k_means()
+        # self.load_Kmeans()
         clusters = self.km.labels_.tolist()
         return clusters
 
     def dump_Kmeans(self):
         from sklearn.externals import joblib
-        joblib.dump(self.km, 'doc_cluster.pkl')
+        joblib.dump(self.km, 'doc_cluster_100.pkl')
+        print("\nKmeans saved!")
 
     def load_Kmeans(self):
-        self.km = joblib.load('doc_cluster.pkl')
+        from sklearn.externals import joblib
+        self.km = joblib.load('doc_cluster_100.pkl')
+        print("Kmeans loaded!")
         clusters = self.km.labels_.tolist()
         return clusters
 
@@ -53,32 +62,44 @@ class Clustering(TextProcessing):
         cPaths = Paths(self.folder)
         self.filenames, self.folders = cPaths.getTxts()
         self.documents, self.textOnly = self.docTxtLists()
-        docs_dict = { 'filename': self.filenames, 'txt': self.textOnly, 'cluster': self.clusters() }
+        # filenames, txtOnly = self.getCSVData()
+        print("Got CSV Data!")
+        docs_dict = { 'filename': self.filenames, 'txt': self.txtOnly, 'cluster': self.clusters() }
+        print("Create datafram with filename, txtOnly and cluster")
         frame = pd.DataFrame(docs_dict, index = [self.clusters()] , columns = ['filename', 'cluster'])
         return frame
 
     def top_terms(self):
         self.load_tfidf()
+        print("frame method\n")
         frame = self.matrix2dataframe()
+        print("terms method\n")
         terms = self.getTerms()
-        vocab_frame = self.getVocabFrame()
-
-        print("Top terms per cluster:")
+        print("vocab_frame method\n")
+        # vocab_frame = self.getVocabFrame()
+        # vocab_frame = pd.read_csv(self.folder +"/vocab_frame.csv")
+        print("Top terms per cluster:\n")
         print()
         #sort cluster centers by proximity to centroid
         order_centroids = self.km.cluster_centers_.argsort()[:, ::-1]
-
+        
+        orig_stdout = sys.stdout
+        f = open(self.folder + '/out_terms100.txt', 'w')
+        sys.stdout = f
         for i in range(self.num_clusters):
             print("Cluster %d words:" % i, end='')
-            for ind in order_centroids[i, :6]: #replace 6 with n words per cluster
-                print(' %s' % vocab_frame.ix[terms[ind].split(' ')].values.tolist()[0][0].encode('utf-8', 'ignore'), end=',')
+            for ind in order_centroids[i, :30]: #replace 6 with n words per cluster
+                # print(' %s' % vocab_frame.ix[terms[ind].split(' ')].values.tolist()[0][0].encode('utf-8', 'ignore'), end=',')
+                print(' %s' % terms[ind].split(' ').pop(), end=',')
             print() #add whitespace
             print() #add whitespace
             print("Cluster %d Filenames:" % i, end='')
             for title in frame.ix[i]['filename'].values.tolist():
                 print(' %s,' % title, end='')
+            print(len(frame.ix[i]['filename'].values.tolist()))
             print() #add whitespace
             print() #add whitespace
         print()
         print()
-        
+        sys.stdout = orig_stdout
+        f.close()

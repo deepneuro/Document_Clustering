@@ -112,6 +112,7 @@ class Plot(Clustering):
         #plt.savefig('clusters_small_noaxes.png', dpi=200)
 
     def buildGraph2(self):
+        import toptoolbar
         self.load_tfidf()
         cPaths = Paths(self.folder)
         self.filenames, self.folders = cPaths.getTxts()
@@ -120,11 +121,14 @@ class Plot(Clustering):
         cluster_colors, cluster_names = self.setClusters()
 
         #create data frame that has the result of the MDS plus the cluster numbers and titles
-        df = pd.DataFrame(dict(x=xs, y=ys, label=self.clusters(), title=self.filenames)) 
+        
+        # df = pd.DataFrame(dict(x=xs, y=ys, label=self.clusters(), title=self.filenames))
+        # df.to_csv(self.folder + "/graph_data.csv", sep=",")
+        df = pd.read_csv(self.folder + "/graph_data.csv")
 
         #group by cluster
         groups = df.groupby('label')
-
+        print("\nploting...")
         #define custom css to format the font and to remove the axis labeling
         css = """
         text.mpld3-text, div.mpld3-tooltip {
@@ -154,8 +158,11 @@ class Plot(Clustering):
             #set tooltip using points, labels and the already defined 'css'
             tooltip = mpld3.plugins.PointHTMLTooltip(points[0], labels,
                                             voffset=10, hoffset=10, css=css)
+
+            print("\nStarting TopToolbar")
             #connect tooltip to fig
             mpld3.plugins.connect(fig, tooltip, TopToolbar())    
+            print("\nSetting axes")
             
             #set tick marks as blank
             ax.axes.get_xaxis().set_ticks([])
@@ -167,12 +174,17 @@ class Plot(Clustering):
 
             
         ax.legend(numpoints=1) #show legend with only one dot
+        print("\ntrying to display")
+        # mpld3.display() #show the plot
+        mpld3.show() #show the plot
 
-        mpld3.display() #show the plot
-
-        #uncomment the below to export to html
-        #html = mpld3.fig_to_html(fig)
-        #print(html)
+        # plt.show()
+        # uncomment the below to export to html
+        html = mpld3.fig_to_html(fig)
+        # print(html)
+        with open("bacon.html", "w") as f:
+            f.writelines(html)
+        print("bacon.html file created!")
 
 #define custom toolbar location
 class TopToolbar(mpld3.plugins.PluginBase):

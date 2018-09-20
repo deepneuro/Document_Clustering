@@ -26,13 +26,13 @@ if __name__ == "__main__":
     
     # cv_path = r"C:\Users\sergiojesus\DWesktop\Coisas da Alvita\CV\4-Abril_14"
 
-    # parser = parser2txt.Parser2txt(cv_path)
 
     # filenames, pathss = parser.load_txtPaths()
     # parser.outputTxt()
 
 
     def test1():
+        parser = parser2txt.Parser2txt(cv_path)
         # documents, _ = parser.docLists()
         documents, _ = parser.docTxtLists()
         return documents
@@ -49,9 +49,8 @@ if __name__ == "__main__":
         x.corpus()
         x.saveTFIDF()
 
-    def test4():
+    def test4(): # Clusters = 20
         y = clustering.Clustering(cv_path)
-        y.load_tfidf()
         y.top_terms()
 
     def test5():
@@ -61,16 +60,16 @@ if __name__ == "__main__":
     def test6():
         graph = plot.Plot(cv_path)
         graph.buildGraph2()
-
+    
     # pre.preparation()
     # print(pre.getTokenized())
 
     # pre = Pre_processing()
     # a, b, c = pre.loadObjs()
-
+    
     # docs = test1()
     # test2(docs)
     # test3()
-    # test4()
+    test4()
     # test5()
-    test6()
+    # test6()
