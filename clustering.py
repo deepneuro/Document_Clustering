@@ -1,8 +1,5 @@
-import sys
 import pandas as pd
-from sklearn.externals import joblib
-from sklearn.cluster import KMeans
-from sklearn.metrics.pairwise import cosine_similarity
+from sklearn.cluster import MiniBatchKMeans
 
 
 def k_means_definition(tf_idf_matrix, n_clusters):
@@ -12,7 +9,7 @@ def k_means_definition(tf_idf_matrix, n_clusters):
     :param n_clusters: Number of clusters to create
     :return: Fitted model
     """
-    k_means_model = KMeans(n_clusters=n_clusters)
+    k_means_model = MiniBatchKMeans(n_clusters=n_clusters)
 
     k_means_model.fit(tf_idf_matrix)
 
