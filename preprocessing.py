@@ -17,17 +17,18 @@ def text_tokenization_portuguese(string):
     :param string: String to be tokenized
     :return: List of tokens
     """
-    re_list = re.findall('([A-Za-zÀ-ÿ]+(-|)[A-Za-zÀ-ÿ]+|[A-Za-zÀ-ÿ]+)', string)
+    re_list = re.findall('([A-Za-zÀ-ÿ-])+', string)
 
-    token_list = [element[0] for element in re_list]
+    token_list = [element[0] for element in re_list if len(element[0]) > 2]
 
     return token_list
 
 
 # Creating the TF-IDF vectorizer class
+
 TF_IDF = TfidfVectorizer(stop_words=stop_words_pt,
                          tokenizer=text_tokenization_portuguese,
-                         ngram_range=(1, 2))
+                         ngram_range=(1, 1))
 
 
 def create_tf_idf_matrix(document_series):

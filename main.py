@@ -8,6 +8,8 @@
 
 import pather
 import pdfparser
+import clustering
+import preprocessing
 
 
 def write_txt_documents(path):
@@ -46,3 +48,12 @@ def write_txt_documents(path):
             exception_list.append([e, file])
 
     return exception_list
+
+
+def cluster_documents(path):
+    """
+    For a given path, reads the .txt files and creates the top words for each
+    cluster, with TF-IDF parametrization
+    :param path: Path to the .txt files
+    :return: List with most important words and elements of the cluster
+    """
