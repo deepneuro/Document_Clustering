@@ -9,7 +9,7 @@ def k_means_definition(tf_idf_matrix, n_clusters):
     :param n_clusters: Number of clusters to create
     :return: Fitted model
     """
-    k_means_model = MiniBatchKMeans(n_clusters=n_clusters)
+    k_means_model = MiniBatchKMeans(n_clusters=n_clusters, random_state=0)
 
     k_means_model.fit(tf_idf_matrix)
 

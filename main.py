@@ -69,7 +69,7 @@ def top_cluster_words(path, num_clusters, num_words, language='pt'):  # TODO Cle
     print(time.time()-timer)
     timer = time.time()
 
-    tf_idf_matrix, tokens = preprocessing.create_tf_idf_matrix(
+    tf_idf_matrix, tokens = preprocessing.create_tf_idf_matrix_portuguese(
         texts_dataframe[texts_dataframe.lang == language].text)
     print('Second task (tf-idf matrix):')
     print(time.time()-timer)
