@@ -25,7 +25,7 @@ def text_tokenization_portuguese(string):
     :param string: String to be tokenized
     :return: List of tokens
     """
-    re_list = re.findall('([A-Za-zÀ-ÿ-]+)', string)
+    re_list = re.findall('([A-Za-zÀ-ÿ][A-Za-zÀ-ÿ-]+)', string)
 
     token_list = [element.lower() for element in re_list if len(element) > 2]
 
@@ -92,7 +92,7 @@ def text_tokenization_lemmatization_pt(string):
 
 def create_tf_idf_matrix_portuguese(document_series,
                                     token_function=
-                                    text_tokenization_lemmatization_pt):
+                                    text_tokenization_portuguese):
     """
     From a pandas series of documents, create its TF-IDF matrix
     :param document_series: pandas series of documents
@@ -161,7 +161,7 @@ def text_lemmatization_english(token_list):
 
 def text_tokenization_stemming_en(string):
     """
-    TODO
+    TODO complete
     :param string:
     :return:
     """
@@ -173,7 +173,7 @@ def text_tokenization_stemming_en(string):
 
 def text_tokenization_lemmatization_en(string):
     """
-
+    TODO complete
     :param string:
     :return:
     """
