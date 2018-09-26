@@ -1,8 +1,9 @@
 import csv
 import re
-import spacy
+
 import spacy.lang.en
 import spacy.lang.pt
+
 from sklearn.feature_extraction.text import TfidfVectorizer
 from nltk.stem.snowball import SnowballStemmer
 
@@ -23,19 +24,22 @@ def text_tokenization_portuguese(string):
     """
     From a string, returns a list of tokens that are in it
     :param string: String to be tokenized
-    :return: List of tokens
+    :return: a list of tokens
     """
-    re_list = re.findall('([A-Za-zÀ-ÿ][A-Za-zÀ-ÿ-]+)', string)
-
+    # Regular expression to match
+    re_list = re.findall('([A-Za-zÀ-ÿ][A-Za-zÀ-ÿ-#&-*+]+)', string)
+    # Filter by tokens that are more than 2 characters long
     token_list = [element.lower() for element in re_list if len(element) > 2]
 
     return token_list
 
 
-# Creating the necessary objects for the functions to run
+# Creating the necessary objects for the following functions to run
 
+# Stemming object (from NLTK)
 stemmer_pt = SnowballStemmer("portuguese")
 
+# Lematization dictionary (From SpaCy lib)
 first_dict = dict(spacy.lang.pt.lemmatizer.LOOKUP)
 lems_pt = {key.lower(): value.lower() for key, value in first_dict.items()}
 
@@ -68,9 +72,10 @@ def text_lemmatization_portuguese(token_list):
 
 def text_tokenization_stemming_pt(string):
     """
-    TODO
-    :param string:
-    :return:
+    For a given string, returns a tokenization result with stemming (for
+    portuguese)
+    :param string: The string to be tokenized
+    :return: a list of stemmed tokens
     """
     tokens = text_tokenization_portuguese(string)
     stems = text_stemming_portuguese(tokens)
@@ -80,9 +85,10 @@ def text_tokenization_stemming_pt(string):
 
 def text_tokenization_lemmatization_pt(string):
     """
-
-    :param string:
-    :return:
+    For a given string, returns a tokenization result with lemmatization (for
+    portuguese)
+    :param string: The string to be tokenized
+    :return: a list of lemmatized tokens
     """
     tokens = text_tokenization_portuguese(string)
     lemmas = text_lemmatization_portuguese(tokens)
@@ -118,8 +124,9 @@ def text_tokenization_english(string):
     :param string: String to be tokenized
     :return: List of tokens
     """
+    # Regular expression to match
     re_list = re.findall('([A-Za-zÀ-ÿ\']+)', string)
-
+    # Filter by tokens that are more than 2 characters long
     token_list = [element.lower() for element in re_list if len(element) > 2]
 
     return token_list
@@ -127,8 +134,10 @@ def text_tokenization_english(string):
 
 # Creating the necessary objects for the functions to run
 
+# Stemming object (from NLTK)
 stemmer_en = SnowballStemmer("english")
 
+# Lemmas dictionary (From SpaCy lib)
 first_dict = dict(spacy.lang.en.lemmatizer.LOOKUP)
 lems_en = {key.lower(): value.lower() for key, value in first_dict.items()}
 
@@ -161,9 +170,10 @@ def text_lemmatization_english(token_list):
 
 def text_tokenization_stemming_en(string):
     """
-    TODO complete
-    :param string:
-    :return:
+    For a given string, returns a tokenization result with stemming (for
+    english)
+    :param string: The string to be tokenized
+    :return: A list of stemmed tokens
     """
     tokens = text_tokenization_english(string)
     stems = text_stemming_english(tokens)
@@ -173,9 +183,10 @@ def text_tokenization_stemming_en(string):
 
 def text_tokenization_lemmatization_en(string):
     """
-    TODO complete
-    :param string:
-    :return:
+    For a given string, returns a tokenization result with lemmatization (for
+    english)
+    :param string: The string to be tokenized
+    :return:  A list of lemmatized tokens
     """
     tokens = text_tokenization_english(string)
     lemmas = text_lemmatization_english(tokens)
@@ -193,7 +204,7 @@ def create_tf_idf_matrix_english(document_series,
     :return: TF-IDF matrix of the documents (sparse)
     """
 
-    TF_IDF_en = TfidfVectorizer(stop_words=stop_words_pt,
+    TF_IDF_en = TfidfVectorizer(stop_words='english',
                                 tokenizer=token_function,
                                 ngram_range=(1, 1))
     tf_idf_matrix = TF_IDF_en.fit_transform(document_series)

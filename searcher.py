@@ -29,6 +29,8 @@ def one_term_search(search_term, TF_IDF_matrix, token_list, num_returns='all'):
     :return: Document number and score for the given term
     """
 
+    search_term = search_term.lower()
+
     token_index = token_list.index(search_term)  # Find term index
 
     token_matrix = TF_IDF_matrix[:, token_index]  # Slice matrix to get term
@@ -57,9 +59,9 @@ def documents_return(ordered_matrix, document_dataframe):
 
 def normalize_column(ordered_matrix):
     """
-    TODO
-    :param ordered_matrix:
-    :return:
+    For a given result of search, returns a normalized score (between 1 and 0)
+    :param ordered_matrix: (list) Result of a search
+    :return: (list) Normalized result of a search
     """
 
     max_value = ordered_matrix[0][1]
@@ -89,14 +91,17 @@ def multi_term_search(search_terms, TF_IDF_matrix, token_list,
                       method='add',
                       num_returns='all'):
     """
-
-    :param search_terms:
-    :param TF_IDF_matrix:
-    :param token_list:
-    :param method: either add or mult; Adds or multiplies columns
-    :param num_returns:
-    :return:
+    For a given number of terms, returns the documents that have bigger
+    frequency of said terms
+    :param search_terms: (list) terms to be searched in docuents
+    :param TF_IDF_matrix: (scipy.sparse) TF-IDF matrix
+    :param token_list: (list) Tokens resulting from TF-IDF transformation
+    :param method: (str) either 'add' or 'mult'; Adds or multiplies columns
+    :param num_returns: (int) Number of hits wanted
+    :return: (list) Top N returns for the given search terms (index and score)
     """
+
+    search_terms = [search_term.lower for search_term in search_terms]
 
     ordered_matrices = [one_term_search(search_term, TF_IDF_matrix, token_list)
                         for search_term in search_terms]
@@ -116,7 +121,7 @@ def multi_term_search(search_terms, TF_IDF_matrix, token_list,
     elif method == 'mult':
         initial_array = np.array([[1]]*size)
         mult_matrix = scipy.sparse.csc_matrix(initial_array)
-        for csc_matrix in  csc_matrices:
+        for csc_matrix in csc_matrices:
             mult_matrix = mult_matrix.multiply(csc_matrix)
 
         end_matrix = mult_matrix
