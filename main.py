@@ -91,3 +91,6 @@ def top_cluster_words(path, num_clusters, num_words, language='pt'):  # TODO Cle
 
 if __name__ == '__main__':
     top_cluster_words(r'C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV')
+
+class SearchEngine(init_path)
+    self.path = init_path
