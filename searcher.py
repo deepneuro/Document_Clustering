@@ -57,6 +57,18 @@ def documents_return(ordered_matrix, document_dataframe):
     return document_list, scores
 
 
+def corpus_return(ordered_matrix, document_dataframe):
+    """
+    For a given document ID, returns the document text. (for summarizer)
+    :param ordered_matrix: A matrix in row value form tuple
+    :param document_dataframe: The original dataframe with the documents
+    :return:  List of the text of the files
+    """
+    document_list = [document_dataframe.iloc[document[0]].text
+                     for document in ordered_matrix]
+    return document_list
+
+
 def normalize_column(ordered_matrix):
     """
     For a given result of search, returns a normalized score (between 1 and 0)
@@ -88,7 +100,7 @@ def sort_lines_to_csc(sorted_lines, TF_IDF_matrix):
 
 
 def multi_term_search(search_terms, TF_IDF_matrix, token_list,
-                      method='add',
+                      method='mult',
                       num_returns='all'):
     """
     For a given number of terms, returns the documents that have bigger
@@ -101,7 +113,7 @@ def multi_term_search(search_terms, TF_IDF_matrix, token_list,
     :return: (list) Top N returns for the given search terms (index and score)
     """
 
-    search_terms = [search_term.lower for search_term in search_terms]
+    search_terms = [search_term.lower() for search_term in search_terms]
 
     ordered_matrices = [one_term_search(search_term, TF_IDF_matrix, token_list)
                         for search_term in search_terms]

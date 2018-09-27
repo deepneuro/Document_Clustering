@@ -11,6 +11,8 @@ import pdfparser
 import reader
 import clustering
 import preprocessing
+import searcher
+import summarizer
 import time
 
 
@@ -89,8 +91,56 @@ def top_cluster_words(path, num_clusters, num_words, language='pt'):  # TODO Cle
     return top_words
 
 
-if __name__ == '__main__':
-    top_cluster_words(r'C:\Users\sergiojesus\Desktop\Coisas da Alvita\CV')
+class SearchEngine:
 
-class SearchEngine(init_path)
-    self.path = init_path
+    def __init__(self, init_path, lang='pt'):
+
+        self._path = init_path
+        self.lang = lang
+        self._search_results = None
+        self._tokens = None
+        self._tf_idf_matrix = None
+        self._result_documents = None
+        self._dataframe = None
+        self._result_summaries = None
+        self._result_score = None
+        self._results = list()
+
+    def _create_df(self):
+
+        self._dataframe = reader.create_data_frame(self._path)
+        self._search_dataframe = self._dataframe[self._dataframe.lang == self.lang]
+
+    def _create_tf_idf(self):
+
+        if self._dataframe is None:
+            self._create_df()
+
+        if self.lang == 'pt':
+            self._tf_idf_matrix, self._tokens = preprocessing.create_tf_idf_matrix_portuguese(self._search_dataframe.text)
+        elif self.lang == 'en':
+            self._tf_idf_matrix, self._tokens = preprocessing.create_tf_idf_matrix_english(self._search_dataframe.text)
+
+    def run_search(self, terms, summary=True, num_returns='all'):
+        self._results = list()
+        if self._tf_idf_matrix is None:
+            self._create_tf_idf()
+
+        self._search_results = searcher.multi_term_search(terms,
+                                                          self._tf_idf_matrix,
+                                                          self._tokens,
+                                                          num_returns=num_returns)
+
+        self._result_documents, self._result_score = searcher.documents_return(self._search_results, self._search_dataframe)
+
+        if summary:
+            result_texts = searcher.corpus_return(self._search_results, self._search_dataframe)
+            self._result_summaries = [summarizer.create_summary(result_text) for result_text in result_texts]
+            for index in range(len(self._result_documents)):
+                self._results.append((self._result_documents[index], self._result_score[index], self._result_summaries[index]))
+
+        else:
+            for index in range(len(self._result_documents)):
+                self._results.append((self._result_documents[index], self._result_score[index]))
+
+        return self._results
