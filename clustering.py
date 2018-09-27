@@ -90,13 +90,13 @@ class Clustering(TextProcessing):
             print("Cluster %d words:" % i, end='')
             for ind in order_centroids[i, :30]: #replace 6 with n words per cluster
                 # print(' %s' % vocab_frame.ix[terms[ind].split(' ')].values.tolist()[0][0].encode('utf-8', 'ignore'), end=',')
-                print(' %s' % terms[ind].split(' ').pop(), end=',')
+                print(' %s' % terms[ind].split(' ').pop(), end='')
             print() #add whitespace
             print() #add whitespace
             print("Cluster %d Filenames:" % i, end='')
             for title in frame.ix[i]['filename'].values.tolist():
                 print(' %s,' % title, end='')
-            print(len(frame.ix[i]['filename'].values.tolist()))
+            # print(len(frame.ix[i]['filename'].values.tolist()))
             print() #add whitespace
             print() #add whitespace
         print()

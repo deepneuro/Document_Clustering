@@ -173,3 +173,13 @@ class Parser2txt(Paths):
         self.txt_paths,self.txt_filenames = joblib.load('doc_txtPaths.pkl')
         return self.txt_filenames,self.txt_paths
 
+    def Txt2Dataframe(self):
+        self.filenames, self.folders  = self.getTxts()
+        this_loc = 1
+        df = pd.DataFrame(columns = ("name", "content"))
+        for i, filename in enumerate(self.filenames):
+            with open(self.folders[i] + '/' + filename ,"r") as fp:
+                this_doc = fp.read()
+            df.loc[this_loc] = filename, this_doc
+            this_loc += 1
+        return df

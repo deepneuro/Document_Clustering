@@ -1,6 +1,6 @@
 #%%
 # from packages import Parser2txt, Paths, Pre_processing, TextProcessing, Clustering, Plot
-import parser2txt, paths, pre_processing, text_processing, clustering, plot
+import parser2txt, paths, pre_processing, text_processing, clustering, plot, ingest
 
 # class Main():
 
@@ -21,15 +21,11 @@ if __name__ == "__main__":
     # cv_path = r"/Users/emanuel/Desktop/Document_Clustering"
     # cv_path = r"/home/emanuel/Desktop/cvs"
     cv_path = r"/home/emanuel/Desktop/CV"
-
-
-    
+   
     # cv_path = r"C:\Users\sergiojesus\DWesktop\Coisas da Alvita\CV\4-Abril_14"
-
 
     # filenames, pathss = parser.load_txtPaths()
     # parser.outputTxt()
-
 
     def test1():
         parser = parser2txt.Parser2txt(cv_path)
@@ -60,7 +56,16 @@ if __name__ == "__main__":
     def test6():
         graph = plot.Plot(cv_path)
         graph.buildGraph2()
-    
+
+    def test7():
+        parser = parser2txt.Parser2txt(cv_path)
+        df = parser.Txt2Dataframe()
+        # path = paths.Paths(cv_path)
+        # filenames, folders = path.getTxts()
+
+        # attach = ingest.Ingest()
+        # filenames, folders = attach.getTxts()
+
     # pre.preparation()
     # print(pre.getTokenized())
 
@@ -70,6 +75,7 @@ if __name__ == "__main__":
     # docs = test1()
     # test2(docs)
     # test3()
-    test4()
+    # test4()
     # test5()
     # test6()
+    test7()

@@ -17,12 +17,12 @@ class Plot(Clustering):
         # convert two components as we're plotting points in a two-dimensional plane
         # "precomputed" because we provide a distance matrix
         # we will also specify `random_state` so the plot is reproducible.
-        t0 = time()
+        # t0 = time()
         self.dist = self.distance()
         mds = MDS(n_components=2, dissimilarity="precomputed", random_state=1)
         pos = mds.fit_transform(self.dist)  # shape (n_components, n_samples)
-        t1 = time()
-        print("MDS: %.2g sec" % (t1 - t0))
+        # t1 = time()
+        # print("MDS: %.2g sec" % (t1 - t0))
         xs, ys = pos[:, 0], pos[:, 1]
         self.saveMDS(xs, ys)
         return xs, ys
@@ -116,8 +116,8 @@ class Plot(Clustering):
         self.load_tfidf()
         cPaths = Paths(self.folder)
         self.filenames, self.folders = cPaths.getTxts()
-        xs, ys = self.loadMDS()
-        # xs, ys = self.create_MDS()
+        # xs, ys = self.loadMDS()
+        xs, ys = self.create_MDS()
         cluster_colors, cluster_names = self.setClusters()
 
         #create data frame that has the result of the MDS plus the cluster numbers and titles
