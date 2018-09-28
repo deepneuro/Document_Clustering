@@ -51,10 +51,12 @@ def documents_return(ordered_matrix, document_dataframe):
     :return: List of the name of the files
     """
 
-    document_list = [document_dataframe.iloc[document[0]].file
+    document_list = [document_dataframe.iloc[document[0]].names
                      for document in ordered_matrix]
     scores = [ordered_index[1] for ordered_index in ordered_matrix]
-    return document_list, scores
+    path = [document_dataframe.iloc[document[0]].dir for document in
+            ordered_matrix]
+    return document_list, scores, path
 
 
 def corpus_return(ordered_matrix, document_dataframe):

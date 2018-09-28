@@ -196,7 +196,7 @@ def text_tokenization_lemmatization_en(string):
 
 def create_tf_idf_matrix_english(document_series,
                                  token_function=
-                                 text_tokenization_lemmatization_en):
+                                 text_tokenization_english):
     """
     From a pandas series of documents, create its TF-IDF matrix
     :param document_series: pandas series of documents

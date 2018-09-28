@@ -63,5 +63,6 @@ def create_summary(text):
     split_list = line_parser(text)
     parsed_list = clean_lines(split_list)
     joined_text = create_text(parsed_list)
+    summaries = summarization(joined_text)
 
-    return summarization(joined_text)
+    return create_text(summaries)

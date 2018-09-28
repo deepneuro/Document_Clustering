@@ -31,6 +31,28 @@ def read_txt_file(path):
     return text_string
 
 
+def create_dir(first_element):
+    """
+    TODO
+    :param first_element:
+    :return:
+    """
+    first_elements_list = first_element.split('\\')
+    for index, element in enumerate(first_elements_list):
+        if element == 'CV':
+            path = '\\'.join(first_elements_list[index:])
+    return path
+
+
+def create_filename(last_element):
+    """
+    TODO
+    :param last_element:
+    :return:
+    """
+    return last_element[:-4]
+
+
 def create_data_frame(initial_path):
     """
     For a given path, returns a dataframe with the document name of the document
@@ -45,7 +67,12 @@ def create_data_frame(initial_path):
 
     text_files = [read_txt_file(file) for file in path_list]
 
-    dataframe_dict = {'file': last_elements, 'lang': lang, 'text': text_files}
+    dirs = [create_dir(first_element) for first_element in first_elements]
+
+    name = [create_filename(last_element) for last_element in last_elements]
+
+    dataframe_dict = {'file': last_elements, 'lang': lang, 'text': text_files,
+                      'dir': dirs, 'names': name}
 
     dataframe = pd.DataFrame(dataframe_dict)
 

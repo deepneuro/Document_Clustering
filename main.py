@@ -14,6 +14,18 @@ import preprocessing
 import searcher
 import summarizer
 import time
+import pandas as pd
+from IPython.display import display, HTML
+
+
+def pretty_print(df):
+    print_df = df.style.format({'Link': make_clickable})
+    display(print_df)
+
+
+def make_clickable(val):
+    # target _blank to open new window
+    return '<a target="_blank" href="{}">{}</a>'.format(val, val)
 
 
 def write_txt_documents(path):
@@ -25,7 +37,7 @@ def write_txt_documents(path):
     """
 
     # Find the .pdf paths
-    path_list = pather.find_paths(path, 'pdf')
+    path_list = pather.find_paths(pa<zth, 'pdf')
     # Find the directories
     directory_list = pather.return_first_elements(path_list)
     # Find the files' name
@@ -104,6 +116,7 @@ class SearchEngine:
         self._dataframe = None
         self._result_summaries = None
         self._result_score = None
+        self._paths = None
         self._results = list()
 
     def _create_df(self):
@@ -121,6 +134,26 @@ class SearchEngine:
         elif self.lang == 'en':
             self._tf_idf_matrix, self._tokens = preprocessing.create_tf_idf_matrix_english(self._search_dataframe.text)
 
+    def _create_results_df(self, search_results):
+        print('Results:')
+        if len(search_results[0]) == 4:
+            filenames = [search_result[0] for search_result in search_results]
+            paths = [search_result[1][:-3] for search_result in search_results]
+            links = [paths[i] + filenames[i]+'.pdf' for i in range(len(filenames))]
+            scores = [search_result[2] for search_result in search_results]
+            summaries = [search_result[3] for search_result in search_results]
+            dataframe = pd.DataFrame({'File': filenames, 'Link': links, 'Score': scores, 'Summary': summaries})
+        else:
+            filenames = [search_result[0] for search_result in search_results]
+            paths = [search_result[1][:-3] for search_result in search_results]
+            links = [paths[i] + filenames[i] + '.pdf' for i in
+                     range(len(filenames))]
+            scores = [search_result[2] for search_result in search_results]
+            dataframe = pd.DataFrame({'File': filenames, 'Link': links, 'Score': scores})
+        pd.set_option('display.max_colwidth', -1)
+
+        pretty_print(dataframe)
+
     def run_search(self, terms, summary=True, num_returns='all'):
         self._results = list()
         if self._tf_idf_matrix is None:
@@ -131,16 +164,19 @@ class SearchEngine:
                                                           self._tokens,
                                                           num_returns=num_returns)
 
-        self._result_documents, self._result_score = searcher.documents_return(self._search_results, self._search_dataframe)
+        self._result_documents, self._result_score, self._paths = searcher.documents_return(self._search_results, self._search_dataframe)
 
         if summary:
             result_texts = searcher.corpus_return(self._search_results, self._search_dataframe)
             self._result_summaries = [summarizer.create_summary(result_text) for result_text in result_texts]
             for index in range(len(self._result_documents)):
-                self._results.append((self._result_documents[index], self._result_score[index], self._result_summaries[index]))
+                self._results.append((self._result_documents[index], self._paths[index], self._result_score[index],  self._result_summaries[index]))
 
         else:
             for index in range(len(self._result_documents)):
-                self._results.append((self._result_documents[index], self._result_score[index]))
-
+                self._results.append((self._result_documents[index], self._paths[index], self._result_score[index]))
+        self._create_results_df(self._results)
         return self._results
+
+
+
