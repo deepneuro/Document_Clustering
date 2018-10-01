@@ -1,11 +1,3 @@
-# main functions of the app
-
-# def import_documents():
-
-# def create_keywords():
-
-# def run_search():
-
 import pather
 import pdfparser
 import reader
@@ -13,9 +5,8 @@ import clustering
 import preprocessing
 import searcher
 import summarizer
-import time
 import pandas as pd
-from IPython.display import display, HTML
+from IPython.display import display
 
 
 def pretty_print(df):
@@ -37,7 +28,7 @@ def write_txt_documents(path):
     """
 
     # Find the .pdf paths
-    path_list = pather.find_paths(pa<zth, 'pdf')
+    path_list = pather.find_paths(path, 'pdf')
     # Find the directories
     directory_list = pather.return_first_elements(path_list)
     # Find the files' name
@@ -66,7 +57,7 @@ def write_txt_documents(path):
     return exception_list
 
 
-def top_cluster_words(path, num_clusters, num_words, language='pt'):  # TODO Clear times prints
+def top_cluster_words(path, num_clusters, num_words, language='pt'):
     """
     For a given path, reads the .txt files and creates the top words for each
     cluster, with TF-IDF parametrization
@@ -76,29 +67,16 @@ def top_cluster_words(path, num_clusters, num_words, language='pt'):  # TODO Cle
     :param language: Language to be analysed
     :return: List with most important words and elements of the cluster
     """
-    timer = time.time()
-    texts_dataframe = reader.create_data_frame(path)
 
-    print('First task (read txt files):')
-    print(time.time()-timer)
-    timer = time.time()
+    texts_dataframe = reader.create_data_frame(path)
 
     tf_idf_matrix, tokens = preprocessing.create_tf_idf_matrix_portuguese(
         texts_dataframe[texts_dataframe.lang == language].text)
-    print('Second task (tf-idf matrix):')
-    print(time.time()-timer)
-    timer = time.time()
 
     kmeans_model = clustering.k_means_definition(tf_idf_matrix, num_clusters)
-    print('Third task (clustering):')
-    print(time.time()-timer)
-    timer = time.time()
 
     top_words = clustering.top_terms(kmeans_model, tokens, num_words,
                 texts_dataframe[texts_dataframe.lang == language].file.tolist())
-
-    print('Fourth task (finding words):')
-    print(time.time()-timer)
 
     return top_words
 
@@ -136,13 +114,14 @@ class SearchEngine:
 
     def _create_results_df(self, search_results):
         print('Results:')
-        if len(search_results[0]) == 4:
+        if len(search_results[0]) == 5:
             filenames = [search_result[0] for search_result in search_results]
             paths = [search_result[1][:-3] for search_result in search_results]
             links = [paths[i] + filenames[i]+'.pdf' for i in range(len(filenames))]
             scores = [search_result[2] for search_result in search_results]
             summaries = [search_result[3] for search_result in search_results]
-            dataframe = pd.DataFrame({'File': filenames, 'Link': links, 'Score': scores, 'Summary': summaries})
+            results = [search_result[4] for search_result in search_results]
+            dataframe = pd.DataFrame({'File': filenames, 'Link': links, 'Score': scores, 'Summary': summaries, 'Results': results})
         else:
             filenames = [search_result[0] for search_result in search_results]
             paths = [search_result[1][:-3] for search_result in search_results]
@@ -169,8 +148,9 @@ class SearchEngine:
         if summary:
             result_texts = searcher.corpus_return(self._search_results, self._search_dataframe)
             self._result_summaries = [summarizer.create_summary(result_text) for result_text in result_texts]
+            self._found_keywords = [summarizer.create_keywords_text(result_text, terms) for result_text in result_texts]
             for index in range(len(self._result_documents)):
-                self._results.append((self._result_documents[index], self._paths[index], self._result_score[index],  self._result_summaries[index]))
+                self._results.append((self._result_documents[index], self._paths[index], self._result_score[index],  self._result_summaries[index], self._found_keywords[index]))
 
         else:
             for index in range(len(self._result_documents)):

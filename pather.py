@@ -3,7 +3,7 @@ import glob
 
 # Main objective:
 # From a path, return all the pdf files' paths and separate the variables (done)
-# Create inside these paths a directory for .txt files.
+# Create inside these paths a directory for .txt files. (done)
 
 
 def find_paths(initial_path, extension):
