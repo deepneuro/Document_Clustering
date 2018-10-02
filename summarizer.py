@@ -46,6 +46,7 @@ class Summarizer:
 
 
     def summarization(self, text):
+        
         """
         GenSim summarizer for text
         :param text: text to be summarized

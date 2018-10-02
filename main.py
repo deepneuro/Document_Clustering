@@ -1,6 +1,6 @@
 #%%
 # from packages import Parser2txt, Paths, Pre_processing, TextProcessing, Clustering, Plot
-import parser2txt, paths, pre_processing, text_processing, clustering, plot, ingest
+import parser2txt, paths, pre_processing, text_processing, clustering, plot, ingest, summarizer
 
 # class Main():
 
@@ -78,4 +78,10 @@ if __name__ == "__main__":
     # test4()
     # test5()
     # test6()
-    test7()
+    # test7()
+    path = paths.Paths(cv_path)
+    bacon = path.txt_subfolders()
+    for item in bacon:
+        if item is '/home/emanuel/Desktop/CV/Serralheiro/text_files/Nuno Alves_12-2017.txt':
+            print(item)
+    

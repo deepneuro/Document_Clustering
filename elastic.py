@@ -1,20 +1,23 @@
 from elasticsearch import Elasticsearch
+import re
 
 class Elastic:
     
-    def __init__(self, size=None):
+    def __init__(self, size=None, keywords= None):
         self.size = 1000
-    
+        self.keywords = ''
+
     def query(self):
         while True:
             try:
-                keywords =  [input('What keywords do you want?: ').replace(',','')]
+                self.keywords =  [input('What keywords do you want?: ').replace(',',' ').lower()]
+                print(self.keywords)
             except ValueError:
                 print("Not an integer!")
                 continue
             else:
                 break 
-        return keywords
+        return self.keywords
 
     def queryElastic_name(self):
         es = Elasticsearch(['192.168.20.32:9200'])
@@ -23,16 +26,15 @@ class Elastic:
             search_results = es.search(index = 'cv', doc_type= 'txt', size=self.size,
                             body = {"_source": "name",
                                 "query": {
-                                "match":{"content": keywords[0]},
+                                "match_phrase":{"content": {"query": keywords[0], "analyzer": 'bacon'}}
                                 }
                             })
             if search_results["hits"]["total"] != 0: break
-            else: 
-                print("\nNo input given.. Try again: ")
+            else:
+                print("\nNo input given or 0 hits.. Try again: ")
                 continue
 
         print('Found {} hits!'.format(search_results["hits"]["total"]))
-
         return search_results
 
     def queryElastic_content(self, filename):
@@ -42,10 +44,9 @@ class Elastic:
                             "query": {
                                 "match":{"name": filename},
                             }
-                        })          
+                        })
         return search_results
 
-    
     def name(self):
         search_results = self.queryElastic_name()
         n = 0
@@ -100,18 +101,40 @@ class Elastic:
     def summary(self, corpus, filename):
         import summarizer
         from gensim.summarization.summarizer import summarize
+        visited = []
+        words = self.keywords[0].split()
         summarizer = summarizer.Summarizer()
         corpus_pro = summarizer.create_summary(corpus)
+        text_list = corpus.split('\n')
+        for sent in text_list:
+            sent_pro = re.sub(r'[^A-Za-zÁ-ÿ^#+]+', ' ', sent)
+            # sent_pro = re.sub(r'[\W+^#]+', ' ', sent)
+            sent_list = sent_pro.split()
+            for word in sent_list:
+                if (word.lower() in words) and (sent not in visited):
+                    visited.append(sent)
+                    break
         # print(corpus_pro)
         sentence_n = 5
         # rank = list(set(summarize(corpus_pro).split("\n")))
         rank = corpus_pro
         j = 0
-        print('*'*50)
+        print('*'*100)
+        print('Matched Phrases of', filename)
+        print('*'*100)
+
+        for i, elem in enumerate(visited):
+            print('\n ● ' + elem)   
+            if i > 5:
+                break
+        print()
+
+        print('*'*100)
         print('Summary of', filename)
-        print('*'*50)
+        print('*'*100)
+
         while j <= sentence_n:
-            print('\n ● '+rank[j])
+            print('\n ● ' + rank[j])
             j += 1
 
 if __name__ == "__main__":
