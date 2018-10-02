@@ -26,7 +26,7 @@ class Elastic:
             search_results = es.search(index = 'cv', doc_type= 'txt', size=self.size,
                             body = {"_source": "name",
                                 "query": {
-                                "match_phrase":{"content": {"query": keywords[0], "analyzer": 'bacon'}}
+                                "match":{"content": {"query": keywords[0], "analyzer": 'patterned_analyzer'}}
                                 }
                             })
             if search_results["hits"]["total"] != 0: break
@@ -100,6 +100,7 @@ class Elastic:
 
     def summary(self, corpus, filename):
         import summarizer
+        import difflib
         from gensim.summarization.summarizer import summarize
         visited = []
         words = self.keywords[0].split()
@@ -107,11 +108,15 @@ class Elastic:
         corpus_pro = summarizer.create_summary(corpus)
         text_list = corpus.split('\n')
         for sent in text_list:
-            sent_pro = re.sub(r'[^A-Za-zÁ-ÿ^#+]+', ' ', sent)
+            sent_pro = re.sub(r'[^A-Za-zÁ-ÿ#+.0-9]+', ' ', sent)
             # sent_pro = re.sub(r'[\W+^#]+', ' ', sent)
             sent_list = sent_pro.split()
+            sent_list = [item.lower() for item in sent_list]
+            # print(sent_list)
             for word in sent_list:
-                if (word.lower() in words) and (sent not in visited):
+                # if (word.lower() in words) and (sent not in visited):
+                if difflib.get_close_matches(word, words) and (sent not in visited):
+                    # print(difflib.get_close_matches(word, sent_list))
                     visited.append(sent)
                     break
         # print(corpus_pro)
@@ -120,7 +125,7 @@ class Elastic:
         rank = corpus_pro
         j = 0
         print('*'*100)
-        print('Matched Phrases of', filename)
+        print('Closed matched phrases of', filename)
         print('*'*100)
 
         for i, elem in enumerate(visited):
@@ -134,8 +139,11 @@ class Elastic:
         print('*'*100)
 
         while j <= sentence_n:
+            if len(rank) <= j:
+                break
             print('\n ● ' + rank[j])
             j += 1
+
 
 if __name__ == "__main__":
     elastic = Elastic()
