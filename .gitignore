@@ -20,3 +20,8 @@ Doc_objs.pkl
 vectorizer.pkl
 doc_txtPaths.pkl
 tfidf_matrix.pkl
+
+**/CV
+**/.ipynb_checkpoints
+**/.idea
+**/__pycache__
