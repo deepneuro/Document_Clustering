@@ -159,4 +159,10 @@ class SearchEngine:
         return self._results
 
 
+class SearchEngineElasticSearch:
+
+    def __init__(self, init_path=None):
+        self.path = init_path
+
+    
 
