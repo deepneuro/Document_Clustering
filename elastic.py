@@ -5,13 +5,19 @@ import re
 es = Elasticsearch(['192.168.20.32:9200'])
 
 
-def query_elastic(keywords, max_size = 100):
+def query_elastic_by_keywords(keywords, max_size=100):
+    """
+
+    :param keywords:
+    :param max_size:
+    :return:
+    """
 
     # JSON of the query
     query_body = {"_source": "name",
                   "query": {
                             "match_phrase": {
-                                             "content": {
+                                             "txt": {
                                                          "query": keywords,
                                                          "analyzer": 'patterned_analyzer'
                                                         }
@@ -19,21 +25,34 @@ def query_elastic(keywords, max_size = 100):
                             }
                   }
 
-    search_results = es.search(index='cv_sergio',
+    search_results = es.search(index='cv',
                                doc_type='txt',
                                size=max_size,
                                body=query_body)
     return search_results
 
 
-def queryElastic_content(self, filename):
-    es = Elasticsearch(['192.168.20.32:9200'])
-    search_results = es.search(index = 'cv_sergio', doc_type= 'txt', size=1,
-                    body={"_source": "content",
-                          "query": {
-                                    "match": {"name": filename},
-                                   }
-                          })
+def query_elastic_by_filename(filename):
+    """
+
+    :param filename:
+    :return:
+    """
+
+    # JSON of the query
+    query_body = {"_source": "name",
+                  "query": {
+                            "match": {
+                                      "name": filename
+                                     }
+                            }
+                  }
+
+    search_results = es.search(index='cv',
+                               doc_type='txt',
+                               size=1,
+                               body=query_body)
+
     return search_results
 
 
