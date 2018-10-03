@@ -10,11 +10,16 @@ class Elastic:
     def query(self):
         while True:
             try:
-                self.keywords =  [input('What keywords do you want?: ').replace(',',' ').lower()]
-                print(self.keywords)
+                self.keywords =  [input('What keywords do you want?: ').replace(',',' ').lower().strip()]
+                if self.keywords == ['']:
+                    break
             except ValueError:
-                print("Not an integer!")
-                continue
+                if len(self.keywords) != 0 and self.keywords[0] != '':
+                    print("Not an integer!")
+                    continue
+                else:
+                    print("Nothing typed. Exiting..")
+                    break
             else:
                 break 
         return self.keywords
@@ -23,18 +28,22 @@ class Elastic:
         es = Elasticsearch(['192.168.20.32:9200'])
         while True:
             keywords = self.query()
+            if keywords == ['']:
+                search_results = None
+                return search_results
             search_results = es.search(index = 'cv', doc_type= 'txt', size=self.size,
                             body = {"_source": "name",
                                 "query": {
                                 "match":{"content": {"query": keywords[0], "analyzer": 'patterned_analyzer'}}
                                 }
                             })
-            if search_results["hits"]["total"] != 0: break
+            if search_results["hits"]["total"] != 0 and len(keywords) != 0:
+                print('Found {} hits!'.format(search_results["hits"]["total"]))
+                break
             else:
                 print("\nNo input given or 0 hits.. Try again: ")
                 continue
 
-        print('Found {} hits!'.format(search_results["hits"]["total"]))
         return search_results
 
     def queryElastic_content(self, filename):
@@ -49,15 +58,17 @@ class Elastic:
 
     def name(self):
         search_results = self.queryElastic_name()
-        n = 0
-        i = 0
+        if search_results == None:
+            return 'No input given! Exiting..'
+        self.n = 0
+        self.i = 0
         if search_results["hits"]["total"] == 0:
             print('No results found.. Try again!')
         else:
             while True:
                 try:
-                    n = int(input("Results to show: "))
-                    if n > self.size:
+                    self.n = int(input("Results to show: "))
+                    if self.n > self.size:
                         print("Value too big.. Make it less than {}!".format(self.size))
                         continue
                 except ValueError:
@@ -65,13 +76,13 @@ class Elastic:
                     continue
                 else:
                     break 
-            while i < n and i < search_results["hits"]["total"]:
-                print(i+1,
+            while self.i < self.n and self.i < search_results["hits"]["total"]:
+                print(self.i+1,
                     "| filename:",
-                    search_results["hits"]["hits"][i]["_source"]["name"][:-4],
+                    search_results["hits"]["hits"][self.i]["_source"]["name"][:-4],
                     "| score:",
-                    search_results["hits"]["hits"][i]["_score"])
-                i += 1
+                    search_results["hits"]["hits"][self.i]["_score"])
+                self.i += 1
         x = input("\nWant to see a summary? Press 'id_number' to show or 'no' to exit: ")
         if x.lower() != 'no' and x.lower() != '':
             filename = search_results["hits"]["hits"][int(x)-1]["_source"]["name"]
@@ -83,22 +94,22 @@ class Elastic:
         if search_results["hits"]["total"] == 0:
             print('No results found.. Try again!')
         else:
-            for i in range(5):
+            for self.i in range(5):
                 print(i+1,
                     "| filename:",
-                    search_results["hits"]["hits"][i]["_source"]["content"],
+                    search_results["hits"]["hits"][self.i]["_source"]["content"],
                     "| score:",
-                    search_results["hits"]["hits"][i]["_score"])
-                i += 1
+                    search_results["hits"]["hits"][self.i]["_score"])
+                self.i += 1
     
     def show_content(self, filename):
         search_results = self.queryElastic_content(filename)
         # print('\n' + search_results["hits"]["hits"][0]["_source"]["content"])
         print()
         self.summary(search_results["hits"]["hits"][0]["_source"]["content"], filename)
-        print('\nExit!')
+        # print('\nExit!')
 
-    def summary(self, corpus, filename):
+    def summary(self, corpus, filename, ):
         import summarizer
         import difflib
         from gensim.summarization.summarizer import summarize
@@ -108,7 +119,7 @@ class Elastic:
         corpus_pro = summarizer.create_summary(corpus)
         text_list = corpus.split('\n')
         for sent in text_list:
-            sent_pro = re.sub(r'[^A-Za-zÁ-ÿ#+.0-9]+', ' ', sent)
+            sent_pro = re.sub(r'[^A-Za-zÁ-ÿ#/+.0-9]+', ' ', sent)
             # sent_pro = re.sub(r'[\W+^#]+', ' ', sent)
             sent_list = sent_pro.split()
             sent_list = [item.lower() for item in sent_list]
@@ -143,7 +154,12 @@ class Elastic:
                 break
             print('\n ● ' + rank[j])
             j += 1
+        
+        self.try_again()
 
+    def try_again(self,):
+        print()
+        self.name()
 
 if __name__ == "__main__":
     elastic = Elastic()
