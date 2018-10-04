@@ -42,18 +42,18 @@ def return_first_elements(paths):
     return first_elements
 
 
-def create_directory(paths, directories):
+def create_directory(directories, subdirectories):
     """
-    From a list of paths, create inside each path a group of subdirectories.
-    :param paths: paths to have new directories
-    :param directories: new directories to be added
+    From a list of paths, create inside each directory a group of subdirectories.
+    :param directories: directories to have new subdirectories
+    :param subdirectories: new subdirectories to be added
     :return: Directory created
     """
 
-    for directory in directories:
-        for path in paths:
-            new_path = directory + path
-            try:  # Try to make the desired path
+    for subdirectory in subdirectories:
+        for directory in directories:
+            new_path = subdirectory + directory
+            try:  # Try to make the desired directory
                 os.makedirs(new_path)
-            except OSError:  # Passes if the path already exists
+            except OSError:  # Passes if the directory already exists
                 pass

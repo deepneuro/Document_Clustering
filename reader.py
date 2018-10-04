@@ -39,7 +39,7 @@ def create_dir(first_element):
     """
     first_elements_list = first_element.split('\\')
     for index, element in enumerate(first_elements_list):
-        if element == 'CV':
+        if element == 'CV' or element == 'cv':
             path = '\\'.join(first_elements_list[index:])
     return path
 

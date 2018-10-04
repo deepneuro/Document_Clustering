@@ -63,6 +63,7 @@ def summarization(text):
     :param text: text to be summarized
     :return: summarized text
     """
+
     summarized_text = summarize(text, word_count=50).split('\n')
 
     return list(set(summarized_text))

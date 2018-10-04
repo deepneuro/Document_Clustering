@@ -30,7 +30,7 @@ def define_index(index_name):
             "mappings": {
                          "txt": {
                                  "properties": {
-                                                "content": {
+                                                "text": {
                                                             "type": "text",
                                                             "analyzer": "patterned_analyzer"
                                                            }
@@ -66,7 +66,7 @@ def bulk_indexing(documents_dataframe, index_name):
     bulk(es, generate_data())
 
 
-def query_elastic_by_keywords(keywords, max_size=10):
+def query_elastic_by_keywords(keywords, index, max_size=10):
     """
 
     :param keywords:
@@ -77,7 +77,7 @@ def query_elastic_by_keywords(keywords, max_size=10):
     # JSON of the query
     query_body = {"query": {
                             "match_phrase": {
-                                             "content": {
+                                             "text": {
                                                          "query": keywords,
                                                          "analyzer": 'patterned_analyzer'
                                                         }
@@ -85,7 +85,7 @@ def query_elastic_by_keywords(keywords, max_size=10):
                             }
                   }
 
-    elastic_results = es.search(index='cv',
+    elastic_results = es.search(index=index,
                                 doc_type='txt',
                                 size=max_size,
                                 body=query_body)

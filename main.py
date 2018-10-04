@@ -5,6 +5,7 @@ import clustering
 import preprocessing
 import searcher
 import summarizer
+import elastic
 import pandas as pd
 from IPython.display import display
 
@@ -17,6 +18,28 @@ def pretty_print(df):
 def make_clickable(val):
     # target _blank to open new window
     return '<a target="_blank" href="{}">{}</a>'.format(val, val)
+
+
+def create_results_df(search_results):
+        print('Results:')
+        if len(search_results[0]) == 5:
+            filenames = [search_result[0] for search_result in search_results]
+            paths = [search_result[1][:-3] for search_result in search_results]
+            links = [paths[i] + filenames[i]+'.pdf' for i in range(len(filenames))]
+            scores = [search_result[2] for search_result in search_results]
+            summaries = [search_result[3] for search_result in search_results]
+            results = [search_result[4] for search_result in search_results]
+            dataframe = pd.DataFrame({'File': filenames, 'Link': links, 'Score': scores, 'Summary': summaries, 'Results': results})
+        else:
+            filenames = [search_result[0] for search_result in search_results]
+            paths = [search_result[1][:-3] for search_result in search_results]
+            links = [paths[i] + filenames[i] + '.pdf' for i in
+                     range(len(filenames))]
+            scores = [search_result[2] for search_result in search_results]
+            dataframe = pd.DataFrame({'File': filenames, 'Link': links, 'Score': scores})
+        pd.set_option('display.max_colwidth', -1)
+
+        pretty_print(dataframe)
 
 
 def write_txt_documents(path):
@@ -82,7 +105,9 @@ def top_cluster_words(path, num_clusters, num_words, language='pt'):
 
 
 class SearchEngine:
-
+    """
+    Local Search Engine using a TF-IDF matrix.
+    """
     def __init__(self, init_path, lang='pt'):
 
         self._path = init_path
@@ -95,6 +120,7 @@ class SearchEngine:
         self._result_summaries = None
         self._result_score = None
         self._paths = None
+        self._found_keywords = None
         self._results = list()
 
     def _create_df(self):
@@ -111,27 +137,6 @@ class SearchEngine:
             self._tf_idf_matrix, self._tokens = preprocessing.create_tf_idf_matrix_portuguese(self._search_dataframe.text)
         elif self.lang == 'en':
             self._tf_idf_matrix, self._tokens = preprocessing.create_tf_idf_matrix_english(self._search_dataframe.text)
-
-    def _create_results_df(self, search_results):
-        print('Results:')
-        if len(search_results[0]) == 5:
-            filenames = [search_result[0] for search_result in search_results]
-            paths = [search_result[1][:-3] for search_result in search_results]
-            links = [paths[i] + filenames[i]+'.pdf' for i in range(len(filenames))]
-            scores = [search_result[2] for search_result in search_results]
-            summaries = [search_result[3] for search_result in search_results]
-            results = [search_result[4] for search_result in search_results]
-            dataframe = pd.DataFrame({'File': filenames, 'Link': links, 'Score': scores, 'Summary': summaries, 'Results': results})
-        else:
-            filenames = [search_result[0] for search_result in search_results]
-            paths = [search_result[1][:-3] for search_result in search_results]
-            links = [paths[i] + filenames[i] + '.pdf' for i in
-                     range(len(filenames))]
-            scores = [search_result[2] for search_result in search_results]
-            dataframe = pd.DataFrame({'File': filenames, 'Link': links, 'Score': scores})
-        pd.set_option('display.max_colwidth', -1)
-
-        pretty_print(dataframe)
 
     def run_search(self, terms, summary=True, num_returns='all'):
         self._results = list()
@@ -155,14 +160,95 @@ class SearchEngine:
         else:
             for index in range(len(self._result_documents)):
                 self._results.append((self._result_documents[index], self._paths[index], self._result_score[index]))
-        self._create_results_df(self._results)
+
+        create_results_df(self._results)
+
         return self._results
 
 
 class SearchEngineElasticSearch:
+    """Search Engine based on ElasticSearch.
 
-    def __init__(self, init_path=None):
-        self.path = init_path
+    Parameters
+    ----------
+    init_path: str, optional, default: None
+        Path to the .txt files to be ingested
 
-    
+    index_name: str, optional, default: 'cv'
+        Name of the ElasticSearch index where the searches or ingestion will
+        be made
 
+    Attributes
+    ----------
+    _dataframe: pandas.DataFrame
+        DataFrame with path and content of the .txt files
+    _results:
+
+    _result_query:
+
+    _scores:
+
+    _documents:
+
+    _names:
+
+    _summaries:
+
+    _keywords:
+
+    """
+    def __init__(self, init_path=None, index_name='cv'):
+
+        self.path = init_path.lower()
+        self.index_name = index_name
+        self._dataframe = None
+        self._results = None
+        self._result_query = None
+        self._scores = None
+        self._documents = None
+        self._names = None
+        self._summaries = None
+        self._keywords = None
+
+    def _create_index(self):
+
+        elastic.define_index(self.index_name)
+
+    def _create_dataframe(self):
+
+        self._dataframe = reader.create_data_frame(self.path)
+
+    def _ingest_data(self):
+
+        if self._dataframe is None:
+            self._create_dataframe()
+            elastic.bulk_indexing(self._dataframe, self.index_name)
+
+        else:
+            elastic.bulk_indexing(self._dataframe, self.index_name)
+
+    def query_database(self, query_string, max_size=10, summary=True):
+
+        self._results = list()
+        self._result_query = elastic.query_elastic_by_keywords(query_string, max_size=max_size)
+        self._scores = elastic.return_files_by_field(self._result_query, 'score', number_displayed_results=max_size)
+        self._documents = elastic.return_files_by_field(self._result_query, 'text', number_displayed_results=max_size)
+        self._names = elastic.return_files_by_field(self._result_query, 'names', number_displayed_results=max_size)
+        self._files = elastic.return_files_by_field(self._result_query, 'file', number_displayed_results=max_size)
+        self._dirs = elastic.return_files_by_field(self._result_query, 'dir', number_displayed_results=max_size)
+
+        if summary:
+            keywords = query_string.split()
+            self._summaries = [summarizer.create_summary(document) for document in self._documents]
+            self._keywords = [summarizer.create_keywords_text(document, keywords) for document in self._documents]
+
+            for index in range(len(self._documents)):
+                self._results.append((self._names[index], self._dirs[index], self._scores[index], self._summaries[index], self._keywords[index]))
+
+        else:
+            for index in range(len(self._documents)):
+                self._results.append((self._names[index], self._dirs[index], self._scores[index]))
+
+        create_results_df(self._results)
+
+        return self._results
