@@ -1,166 +1,150 @@
 from elasticsearch import Elasticsearch
+from elasticsearch.helpers import bulk
 import re
 
-class Elastic:
-    
-    def __init__(self, size=None, keywords= None):
-        self.size = 1000
-        self.keywords = ''
+# Defining the server of ElasticSearch
+es = Elasticsearch(['192.168.20.32:9200'])
 
-    def query(self):
-        while True:
-            try:
-                self.keywords =  [input('What keywords do you want?: ').replace(',',' ').lower().strip()]
-                if self.keywords == ['']:
-                    break
-            except ValueError:
-                if len(self.keywords) != 0 and self.keywords[0] != '':
-                    print("Not an integer!")
-                    continue
-                else:
-                    print("Nothing typed. Exiting..")
-                    break
-            else:
-                break 
-        return self.keywords
 
-    def queryElastic_name(self):
-        es = Elasticsearch(['192.168.20.32:9200'])
-        while True:
-            keywords = self.query()
-            if keywords == ['']:
-                search_results = None
-                return search_results
-            search_results = es.search(index = 'cv', doc_type= 'txt', size=self.size,
-                            body = {"_source": "name",
-                                "query": {
-                                "match":{"content": {"query": keywords[0], "analyzer": 'patterned_analyzer'}}
+def define_index(index_name):
+    """
+    Function to create an index in the ElasticSearch database. It comes with
+    the necessary mapping to tokenize properly the "content" field inside the
+    new index.
+    :param index_name: The name of the index to be created
+    :return: Nothing, creates index in ElasticSearch
+    """
+    body = {"settings": {
+                         "analysis": {
+                                      "analyzer": {
+                                                   "patterned_analyzer": {
+                                                                          "type": "pattern",
+                                                                          "pattern": "[^A-Za-zÁ-ÿ#+0-9]+",
+                                                                          "filter": [
+                                                                                     "lowercase"
+                                                                                    ]
+                                                                         }
+                                                   }
+                                      }
+                         },
+            "mappings": {
+                         "txt": {
+                                 "properties": {
+                                                "text": {
+                                                            "type": "text",
+                                                            "analyzer": "patterned_analyzer"
+                                                           }
+                                               }
                                 }
-                            })
-            if search_results["hits"]["total"] != 0 and len(keywords) != 0:
-                print('Found {} hits!'.format(search_results["hits"]["total"]))
-                break
-            else:
-                print("\nNo input given or 0 hits.. Try again: ")
-                continue
+                        }
+            }
 
-        return search_results
+    es.indices.create(index=index_name, ignore=400, body=body)
 
-    def queryElastic_content(self, filename):
-        es = Elasticsearch(['192.168.20.32:9200'])
-        search_results = es.search(index = 'cv', doc_type= 'txt', size=1,
-                        body = {"_source": "content",
-                            "query": {
-                                "match":{"name": filename},
+
+def bulk_indexing(documents_dataframe, index_name):
+    """
+    Given a DataFrame with documents, ingests them to the given index
+    :param documents_dataframe: pandas.DataFrame with a column with the name of
+    the file (Note that the mappings are done in a way that it's assumed that
+    the text file is in a column named "content")
+    :param index_name: string, Name of the index where the documents will be
+    indexed
+    :return: Nothing, documents will be indexed
+    """
+    column_names = documents_dataframe.columns
+
+    def generate_data():
+
+        for value in documents_dataframe.values:
+            body = dict([(column_name, value[index])
+                        for index, column_name in enumerate(column_names)])
+            body.update({"_index": index_name,
+                         "_type": 'txt'})
+            yield body
+
+    bulk(es, generate_data())
+
+
+def query_elastic_by_keywords(keywords, index, max_size=10):
+    """
+    Query ElasticSearch index with desired keywords.
+    :param keywords: str, keywords to be searched
+    :param max_size: int, maximum number of returns
+    :return: A JSON with results
+    """
+
+    # JSON of the query
+    query_body = {"query": {
+                            "match_phrase": {
+                                             "text": {
+                                                         "query": keywords,
+                                                         "analyzer": 'patterned_analyzer'
+                                                        }
+                                             }
                             }
-                        })
-        return search_results
+                  }
 
-    def name(self):
-        search_results = self.queryElastic_name()
-        if search_results == None:
-            return 'No input given! Exiting..'
-        self.n = 0
-        self.i = 0
-        if search_results["hits"]["total"] == 0:
-            print('No results found.. Try again!')
+    elastic_results = es.search(index=index,
+                                doc_type='txt',
+                                size=max_size,
+                                body=query_body)
+    return elastic_results
+
+
+def query_elastic_by_filename(filename):
+    """
+    Query ElasticSearch index with desired filename.
+    :param filename: str, filename to be found
+    :return: A JSON with results
+    """
+
+    # JSON of the query
+    query_body = {"query": {
+                            "match_phrase": {
+                                             "name": filename
+                                     }
+                            }
+                  }
+
+    elastic_results = es.search(index='cv',
+                                doc_type='txt',
+                                size=1,
+                                body=query_body)
+
+    return elastic_results
+
+
+def return_files_by_field(elastic_results, return_field, number_displayed_results=10):
+    """
+    Given a ElasticSearch query result, returns the wanted field.
+    :param elastic_results:Dictionary, ElasticSearch JSON result
+    :param return_field: string, field to be presented
+    :param number_displayed_results: int, number of max results to be displayed
+    :return: List of the content of the fields in the results
+    """
+    number_results = len(elastic_results["hits"]["hits"])
+
+    # define the number of documents that will be displayed
+    if number_displayed_results > number_results:
+        number_iterations = elastic_results["hits"]["total"]
+    else:
+        number_iterations = number_displayed_results
+
+    # define the output taking into account the number of results
+    if number_results == 0:
+        return ['No results']
+
+    else:
+
+        # score is stored in a different level of the dictionary
+        if return_field == "score":
+            field_list = [elastic_results['hits']['hits'][doc_number]['_score']
+                          for doc_number in range(number_iterations)]
+
         else:
-            while True:
-                try:
-                    self.n = int(input("Results to show: "))
-                    if self.n > self.size:
-                        print("Value too big.. Make it less than {}!".format(self.size))
-                        continue
-                except ValueError:
-                    print("Not an integer!")
-                    continue
-                else:
-                    break 
-            while self.i < self.n and self.i < search_results["hits"]["total"]:
-                print(self.i+1,
-                    "| filename:",
-                    search_results["hits"]["hits"][self.i]["_source"]["name"][:-4],
-                    "| score:",
-                    search_results["hits"]["hits"][self.i]["_score"])
-                self.i += 1
-        x = input("\nWant to see a summary? Press 'id_number' to show or 'no' to exit: ")
-        if x.lower() != 'no' and x.lower() != '':
-            filename = search_results["hits"]["hits"][int(x)-1]["_source"]["name"]
-            self.show_content(filename)
-        else: print('Exit!')
+            field_list = [elastic_results['hits']['hits'][doc_number]['_source'][return_field]
+                          for doc_number in range(number_iterations)]
 
-    def content(self):
-        search_results = self.queryElastic_content()
-        if search_results["hits"]["total"] == 0:
-            print('No results found.. Try again!')
-        else:
-            for self.i in range(5):
-                print(i+1,
-                    "| filename:",
-                    search_results["hits"]["hits"][self.i]["_source"]["content"],
-                    "| score:",
-                    search_results["hits"]["hits"][self.i]["_score"])
-                self.i += 1
-    
-    def show_content(self, filename):
-        search_results = self.queryElastic_content(filename)
-        # print('\n' + search_results["hits"]["hits"][0]["_source"]["content"])
-        print()
-        self.summary(search_results["hits"]["hits"][0]["_source"]["content"], filename)
-        # print('\nExit!')
+        return field_list
 
-    def summary(self, corpus, filename, ):
-        import summarizer
-        import difflib
-        from gensim.summarization.summarizer import summarize
-        visited = []
-        words = self.keywords[0].split()
-        summarizer = summarizer.Summarizer()
-        corpus_pro = summarizer.create_summary(corpus)
-        text_list = corpus.split('\n')
-        for sent in text_list:
-            sent_pro = re.sub(r'[^A-Za-zÁ-ÿ#/+.0-9]+', ' ', sent)
-            # sent_pro = re.sub(r'[\W+^#]+', ' ', sent)
-            sent_list = sent_pro.split()
-            sent_list = [item.lower() for item in sent_list]
-            # print(sent_list)
-            for word in sent_list:
-                # if (word.lower() in words) and (sent not in visited):
-                if difflib.get_close_matches(word, words) and (sent not in visited):
-                    # print(difflib.get_close_matches(word, sent_list))
-                    visited.append(sent)
-                    break
-        # print(corpus_pro)
-        sentence_n = 5
-        # rank = list(set(summarize(corpus_pro).split("\n")))
-        rank = corpus_pro
-        j = 0
-        print('*'*100)
-        print('Closed matched phrases of', filename)
-        print('*'*100)
-
-        for i, elem in enumerate(visited):
-            print('\n ● ' + elem)   
-            if i > 5:
-                break
-        print()
-
-        print('*'*100)
-        print('Summary of', filename)
-        print('*'*100)
-
-        while j <= sentence_n:
-            if len(rank) <= j:
-                break
-            print('\n ● ' + rank[j])
-            j += 1
-        
-        self.try_again()
-
-    def try_again(self,):
-        print()
-        self.name()
-
-if __name__ == "__main__":
-    elastic = Elastic()
-    elastic.name()

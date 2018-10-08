@@ -1,4 +1,3 @@
-from clustering import *
 import os  # for os.path.basename
 import matplotlib.pyplot as plt
 import matplotlib as mpl
@@ -7,7 +6,7 @@ import pandas as pd
 import mpld3
 import time
 
-class Plot(Clustering):
+class Plot():
 
     def __init__(self, folder=None):
         super().__init__(self)
@@ -17,12 +16,12 @@ class Plot(Clustering):
         # convert two components as we're plotting points in a two-dimensional plane
         # "precomputed" because we provide a distance matrix
         # we will also specify `random_state` so the plot is reproducible.
-        # t0 = time()
+        t0 = time()
         self.dist = self.distance()
         mds = MDS(n_components=2, dissimilarity="precomputed", random_state=1)
         pos = mds.fit_transform(self.dist)  # shape (n_components, n_samples)
-        # t1 = time()
-        # print("MDS: %.2g sec" % (t1 - t0))
+        t1 = time()
+        print("MDS: %.2g sec" % (t1 - t0))
         xs, ys = pos[:, 0], pos[:, 1]
         self.saveMDS(xs, ys)
         return xs, ys
@@ -112,23 +111,19 @@ class Plot(Clustering):
         #plt.savefig('clusters_small_noaxes.png', dpi=200)
 
     def buildGraph2(self):
-        import toptoolbar
         self.load_tfidf()
         cPaths = Paths(self.folder)
         self.filenames, self.folders = cPaths.getTxts()
-        # xs, ys = self.loadMDS()
-        xs, ys = self.create_MDS()
+        xs, ys = self.loadMDS()
+        # xs, ys = self.create_MDS()
         cluster_colors, cluster_names = self.setClusters()
 
         #create data frame that has the result of the MDS plus the cluster numbers and titles
-        
-        # df = pd.DataFrame(dict(x=xs, y=ys, label=self.clusters(), title=self.filenames))
-        # df.to_csv(self.folder + "/graph_data.csv", sep=",")
-        df = pd.read_csv(self.folder + "/graph_data.csv")
+        df = pd.DataFrame(dict(x=xs, y=ys, label=self.clusters(), title=self.filenames)) 
 
         #group by cluster
         groups = df.groupby('label')
-        print("\nploting...")
+
         #define custom css to format the font and to remove the axis labeling
         css = """
         text.mpld3-text, div.mpld3-tooltip {
@@ -158,11 +153,8 @@ class Plot(Clustering):
             #set tooltip using points, labels and the already defined 'css'
             tooltip = mpld3.plugins.PointHTMLTooltip(points[0], labels,
                                             voffset=10, hoffset=10, css=css)
-
-            print("\nStarting TopToolbar")
             #connect tooltip to fig
             mpld3.plugins.connect(fig, tooltip, TopToolbar())    
-            print("\nSetting axes")
             
             #set tick marks as blank
             ax.axes.get_xaxis().set_ticks([])
@@ -174,17 +166,12 @@ class Plot(Clustering):
 
             
         ax.legend(numpoints=1) #show legend with only one dot
-        print("\ntrying to display")
-        # mpld3.display() #show the plot
-        mpld3.show() #show the plot
 
-        # plt.show()
-        # uncomment the below to export to html
-        html = mpld3.fig_to_html(fig)
-        # print(html)
-        with open("bacon.html", "w") as f:
-            f.writelines(html)
-        print("bacon.html file created!")
+        mpld3.display() #show the plot
+
+        #uncomment the below to export to html
+        #html = mpld3.fig_to_html(fig)
+        #print(html)
 
 #define custom toolbar location
 class TopToolbar(mpld3.plugins.PluginBase):
