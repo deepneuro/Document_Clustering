@@ -348,7 +348,7 @@ class SearchEngineElasticSearch:
         """
 
         self._results = list()
-        self._result_query = elastic.query_elastic_by_keywords(query_string, max_size=max_size)
+        self._result_query = elastic.query_elastic_by_keywords(query_string, self.index_name, max_size=max_size)
         self._scores = elastic.return_files_by_field(self._result_query, 'score', number_displayed_results=max_size)
         self._documents = elastic.return_files_by_field(self._result_query, 'text', number_displayed_results=max_size)
         self._names = elastic.return_files_by_field(self._result_query, 'names', number_displayed_results=max_size)

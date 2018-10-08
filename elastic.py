@@ -70,13 +70,14 @@ def query_elastic_by_keywords(keywords, index, max_size=10):
     """
     Query ElasticSearch index with desired keywords.
     :param keywords: str, keywords to be searched
+    :param index: str, index to be searched
     :param max_size: int, maximum number of returns
     :return: A JSON with results
     """
 
     # JSON of the query
     query_body = {"query": {
-                            "match_phrase": {
+                            "match": {
                                              "text": {
                                                          "query": keywords,
                                                          "analyzer": 'patterned_analyzer'
