@@ -33,9 +33,10 @@ def read_txt_file(path):
 
 def create_dir(first_element):
     """
-    TODO
-    :param first_element:
-    :return:
+    For a given path, returns the directory from the CV directory to the last
+    one.
+    :param first_element: str, the element to be truncated
+    :return: str, the truncated directory
     """
     first_elements_list = first_element.split('\\')
     for index, element in enumerate(first_elements_list):
@@ -46,9 +47,9 @@ def create_dir(first_element):
 
 def create_filename(last_element):
     """
-    TODO
-    :param last_element:
-    :return:
+    For a given file, returns its name without the extension.
+    :param last_element: str, file name
+    :return: str, file name without extension
     """
     return last_element[:-4]
 

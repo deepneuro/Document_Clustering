@@ -68,10 +68,10 @@ def bulk_indexing(documents_dataframe, index_name):
 
 def query_elastic_by_keywords(keywords, index, max_size=10):
     """
-
-    :param keywords:
-    :param max_size:
-    :return:
+    Query ElasticSearch index with desired keywords.
+    :param keywords: str, keywords to be searched
+    :param max_size: int, maximum number of returns
+    :return: A JSON with results
     """
 
     # JSON of the query
@@ -94,9 +94,9 @@ def query_elastic_by_keywords(keywords, index, max_size=10):
 
 def query_elastic_by_filename(filename):
     """
-
-    :param filename:
-    :return:
+    Query ElasticSearch index with desired filename.
+    :param filename: str, filename to be found
+    :return: A JSON with results
     """
 
     # JSON of the query
@@ -117,11 +117,11 @@ def query_elastic_by_filename(filename):
 
 def return_files_by_field(elastic_results, return_field, number_displayed_results=10):
     """
-
-    :param elastic_results:
-    :param return_field: string, either "score", "name", or "content"
-    :param number_displayed_results:
-    :return:
+    Given a ElasticSearch query result, returns the wanted field.
+    :param elastic_results:Dictionary, ElasticSearch JSON result
+    :param return_field: string, field to be presented
+    :param number_displayed_results: int, number of max results to be displayed
+    :return: List of the content of the fields in the results
     """
     number_results = len(elastic_results["hits"]["hits"])
 

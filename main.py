@@ -11,35 +11,49 @@ from IPython.display import display
 
 
 def pretty_print(df):
+    """
+    Prints a DataFrame with links.
+    :param df: DataFrame to be printed
+    """
     print_df = df.style.format({'Link': make_clickable})
     display(print_df)
 
 
 def make_clickable(val):
+    """
+    Create a HTML hyperlink out of a value.
+    :param val: Value to transform into hyperlink
+    """
     # target _blank to open new window
     return '<a target="_blank" href="{}">{}</a>'.format(val, val)
 
 
 def create_results_df(search_results):
-        print('Results:')
-        if len(search_results[0]) == 5:
-            filenames = [search_result[0] for search_result in search_results]
-            paths = [search_result[1][:-3] for search_result in search_results]
-            links = [paths[i] + filenames[i]+'.pdf' for i in range(len(filenames))]
-            scores = [search_result[2] for search_result in search_results]
-            summaries = [search_result[3] for search_result in search_results]
-            results = [search_result[4] for search_result in search_results]
-            dataframe = pd.DataFrame({'File': filenames, 'Link': links, 'Score': scores, 'Summary': summaries, 'Results': results})
-        else:
-            filenames = [search_result[0] for search_result in search_results]
-            paths = [search_result[1][:-3] for search_result in search_results]
-            links = [paths[i] + filenames[i] + '.pdf' for i in
+    """
+    Out of a search result (with or without ElasticSearch) creates a result
+    DataFrame to be printed.
+    :param search_results: Results of a search with or without ElasticSearch
+    """
+    print('Results:')
+    if len(search_results[0]) == 5:
+        filenames = [search_result[0] for search_result in search_results]
+        paths = [search_result[1][:-3] for search_result in search_results]
+        links = [paths[i] + filenames[i]+'.pdf' for i in range(len(filenames))]
+        scores = [search_result[2] for search_result in search_results]
+        summaries = [search_result[3] for search_result in search_results]
+        results = [search_result[4] for search_result in search_results]
+        dataframe = pd.DataFrame({'File': filenames, 'Link': links, 'Score': scores, 'Summary': summaries, 'Results': results})
+    else:
+        filenames = [search_result[0] for search_result in search_results]
+        paths = [search_result[1][:-3] for search_result in search_results]
+        links = [paths[i] + filenames[i] + '.pdf' for i in
                      range(len(filenames))]
-            scores = [search_result[2] for search_result in search_results]
-            dataframe = pd.DataFrame({'File': filenames, 'Link': links, 'Score': scores})
-        pd.set_option('display.max_colwidth', -1)
+        scores = [search_result[2] for search_result in search_results]
+        dataframe = pd.DataFrame({'File': filenames, 'Link': links, 'Score': scores})
 
-        pretty_print(dataframe)
+    pd.set_option('display.max_colwidth', -1)
+
+    pretty_print(dataframe)
 
 
 def write_txt_documents(path):
@@ -105,9 +119,66 @@ def top_cluster_words(path, num_clusters, num_words, language='pt'):
 
 
 class SearchEngine:
+    """Local Search Engine using a TF-IDF matrix.
+
+    Parameters
+    ----------
+    init_path: str
+        Path to the .txt files to be ingested
+
+    lang: str, optional, default: 'cv'
+        language of the documents to be analysed
+
+    Attributes
+    ----------
+    _path:
+        str, path to the .txt files to be ingested
+
+    lang:
+        str, language of the documents to be analysed
+
+    _search_results:
+        list of tuples, ID and score of the results
+        Defined after run_search() method
+
+    _tokens:
+        List of tokens (strings) found by the TF-IDF method
+        Defined after_create_tf_idf() method
+
+    _tf_idf_matrix:
+        CSR matrix with TF-IDF scores for the ingested documents
+        Defined after_create_tf_idf() method
+
+    _result_documents:
+        List of names of resulting documents
+        Defined after run_search() method
+
+    _dataframe:
+        Pandas DataFrame with all the fields necessary to present results
+        Defined after _create_df() method
+
+    _result_summaries:
+        List of strings with the summaries of resulting documents
+        Defined after run_search() method
+
+    _result_score:
+        List of floats with the normalized scores of the results
+        Defined after run_search() method
+
+    _paths:
+        List of strings with paths to the files to be displayed in the results
+        Defined after run_search() method
+
+    _found_keywords:
+        List of strings with the sentences that have the searched keywords
+        Defined after run_search() method
+
+    _results:
+        List of tuples with necessary information to create a visualization
+        DataFrame
+        Defined after run_search() method
     """
-    Local Search Engine using a TF-IDF matrix.
-    """
+
     def __init__(self, init_path, lang='pt'):
 
         self._path = init_path
@@ -124,12 +195,16 @@ class SearchEngine:
         self._results = list()
 
     def _create_df(self):
-
+        """
+        Creates a DataFrame with the documents inside the initial directory.
+        """
         self._dataframe = reader.create_data_frame(self._path)
         self._search_dataframe = self._dataframe[self._dataframe.lang == self.lang]
 
     def _create_tf_idf(self):
-
+        """
+        Creates TF-IDF sparse matrix.
+        """
         if self._dataframe is None:
             self._create_df()
 
@@ -139,6 +214,16 @@ class SearchEngine:
             self._tf_idf_matrix, self._tokens = preprocessing.create_tf_idf_matrix_english(self._search_dataframe.text)
 
     def run_search(self, terms, summary=True, num_returns='all'):
+        """
+        Search of terms in the documents.
+        :param terms: List of strings
+            terms to be searched
+        :param summary: Boolean, optional, default=True
+            Option to return summary and matches
+        :param num_returns: int or str, optional, default='all'
+            Number of results returned
+        :return: DataFrame with results
+        """
         self._results = list()
         if self._tf_idf_matrix is None:
             self._create_tf_idf()
@@ -182,21 +267,33 @@ class SearchEngineElasticSearch:
     ----------
     _dataframe: pandas.DataFrame
         DataFrame with path and content of the .txt files
+        Defined after running _create_dataframe() method
     _results:
-
+        List of tuples with N asked results. has the asked attributes (summary
+        and matches)
+        Defined after running query_database() method
     _result_query:
-
+        Resulting JSON from the realized action, from ElasticSearch
+        Defined after running query_database() method
     _scores:
-
+        List of floats, TF-IDF score given by ElasticSearch to the resulting
+        documents
+        Defined after running query_database() method
     _documents:
-
+        List of strings of the text contained in the resulting documents pdf
+        Defined after running query_database() method
     _names:
-
+        List of strings with the name of the resulting files
+        Defined after running query_database() method
     _summaries:
-
+        List of strings with summaries of the resulting documents
+        Defined after running query_database() method
     _keywords:
-
+        List of strings with the matches of the keywords in the resulting
+        documents
+        Defined after running query_database() method
     """
+
     def __init__(self, init_path=None, index_name='cv'):
 
         self.path = init_path.lower()
@@ -209,17 +306,27 @@ class SearchEngineElasticSearch:
         self._names = None
         self._summaries = None
         self._keywords = None
+        self._files = None
+        self._dirs = None
 
     def _create_index(self):
+        """
+        Creates an index in ElasticSearch with the defined initial index.
+        """
 
         elastic.define_index(self.index_name)
 
     def _create_dataframe(self):
+        """
+        Creates a DataFrame with the documents inside the initial directory.
+        """
 
         self._dataframe = reader.create_data_frame(self.path)
 
     def _ingest_data(self):
-
+        """
+        Inserts the data within the directory to the defined index.
+        """
         if self._dataframe is None:
             self._create_dataframe()
             elastic.bulk_indexing(self._dataframe, self.index_name)
@@ -228,6 +335,17 @@ class SearchEngineElasticSearch:
             elastic.bulk_indexing(self._dataframe, self.index_name)
 
     def query_database(self, query_string, max_size=10, summary=True):
+        """
+        Generic query to ElasticSearch documents.
+        :param query_string: string
+            words to search in the defined
+        ElasticSearch index
+        :param max_size: int, optional, default=10
+            Number of results returned
+        :param summary: bool, option, default=True
+            Option to return summary and matches
+        :return: DataFrame with the results
+        """
 
         self._results = list()
         self._result_query = elastic.query_elastic_by_keywords(query_string, max_size=max_size)
