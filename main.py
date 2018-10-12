@@ -354,10 +354,11 @@ class SearchEngineElasticSearch:
         self._names = elastic.return_files_by_field(self._result_query, 'names', number_displayed_results=max_size)
         self._files = elastic.return_files_by_field(self._result_query, 'file', number_displayed_results=max_size)
         self._dirs = elastic.return_files_by_field(self._result_query, 'dir', number_displayed_results=max_size)
+        self._summaries = elastic.return_files_by_field(self._result_query, 'summary', number_displayed_results=max_size)
 
         if summary:
             keywords = query_string.split()
-            self._summaries = [summarizer.create_summary(document) for document in self._documents]
+            #self._summaries = [summarizer.create_summary(document) for document in self._documents]
             self._keywords = [summarizer.create_keywords_text(document, keywords) for document in self._documents]
 
             for index in range(len(self._documents)):

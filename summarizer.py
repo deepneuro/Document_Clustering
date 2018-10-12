@@ -9,8 +9,8 @@ def line_parser(string):
     :return: list, different lines of text
     """
 
-    pattern = '-|- \n|-|-\n|- |–|•|\no '
-    line_list = re.sub(pattern, ' ', string).split('\n')
+    pattern = '-|- \n|-|-\n|- |–|•|\no |\.'
+    line_list = re.sub(pattern, '\n', string).split('\n')
 
     result = [item.strip() for item in line_list if len(item.strip()) > 2]
 
@@ -23,12 +23,14 @@ def clean_lines(res):
     :param res: List of strings, string separated by line
     :return: List of strings, with joined lines
     """
-    for element in res[1:]:
+    cleaned_list = [res[0]]
+    for index, element in enumerate(res[1:]):
         letter = element[0]
         if letter.islower():
-            res[res.index(element)-1] += ' ' + element
-            del res[res.index(element)]
-    return res
+            cleaned_list[-1] += ' ' + element
+        else:
+            cleaned_list.append(element)
+    return cleaned_list
 
 
 def find_keywords_sentences(keywords, cleaned_lines):
@@ -39,10 +41,16 @@ def find_keywords_sentences(keywords, cleaned_lines):
     :return: The lines with the given keywords
     """
     accepted_lines = list()
+    i = 0
     for cleaned_line in cleaned_lines:
         for keyword in keywords:
             if keyword.lower() in cleaned_line.lower():
                 accepted_lines.append(cleaned_line)
+                i += 1
+            if i == 5:
+                break
+        if i == 5:
+            break
 
     return list(set(accepted_lines))
 
@@ -64,7 +72,7 @@ def summarization(text):
     :return: summarized text
     """
 
-    summarized_text = summarize(text, word_count=50).split('\n')
+    summarized_text = summarize(text, ratio=0.01).split('\n')
 
     return list(set(summarized_text))
 
@@ -78,11 +86,15 @@ def create_summary(text):
     """
 
     split_list = line_parser(text)
-    parsed_list = clean_lines(split_list)
-    joined_text = create_text(parsed_list)
-    summaries = summarization(joined_text)
+    if len(split_list) == 1:
+        return 'No summary available'
 
-    return create_text(summaries)
+    else:
+        parsed_list = clean_lines(split_list)
+        joined_text = create_text(parsed_list)
+        summaries = summarization(joined_text)
+
+        return create_text(summaries)
 
 
 def create_keywords_text(text, keywords):
@@ -96,6 +108,6 @@ def create_keywords_text(text, keywords):
 
     split_list = line_parser(text)
     parsed_list = clean_lines(split_list)
-    keywords_sentences = find_keywords_sentences(keywords, parsed_list)
+    keywords_sentences = find_keywords_sentences(keywords, parsed_list)[:5]
 
     return create_text(keywords_sentences)

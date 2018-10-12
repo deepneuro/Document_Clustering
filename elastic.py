@@ -1,6 +1,5 @@
 from elasticsearch import Elasticsearch
 from elasticsearch.helpers import bulk
-import re
 
 # Defining the server of ElasticSearch
 es = Elasticsearch(['192.168.20.32:9200'])
@@ -33,7 +32,11 @@ def define_index(index_name):
                                                 "text": {
                                                             "type": "text",
                                                             "analyzer": "patterned_analyzer"
-                                                           }
+                                                           },
+                                                "date": {
+                                                         "type": "date",
+                                                         "format": "yyyyMMdd'T'HHmmss"
+                                                        }
                                                }
                                 }
                         }
