@@ -304,7 +304,7 @@ class SearchEngineElasticSearch:
         self._scores = None
         self._documents = None
         self._names = None
-        self._summaries = None
+        self.__summaries = None
         self._keywords = None
         self._files = None
         self._dirs = None

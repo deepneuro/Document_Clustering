@@ -101,12 +101,12 @@ def query_elastic_by_filename(filename):
     """
 
     # JSON of the query
-    query_body = {"query": {
+    query_body = {"sensor_1:": {"query": {
                             "match_phrase": {
-                                             "name": filename
+                                             "filename": filename
                                      }
                             }
-                  }
+                  }}
 
     elastic_results = es.search(index='cv',
                                 doc_type='txt',
@@ -149,3 +149,5 @@ def return_files_by_field(elastic_results, return_field, number_displayed_result
 
         return field_list
 
+import msgpack
+msgpack.ExtType
