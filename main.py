@@ -45,8 +45,8 @@ def create_results_df(search_results):
         dataframe = pd.DataFrame({'File': filenames, 'Link': links, 'Score': scores, 'Summary': summaries, 'Results': results})
     else:
         filenames = [search_result[0] for search_result in search_results]
-        paths = [search_result[1][:-3] for search_result in search_results]
-        links = [paths[i] + filenames[i] + '.pdf' for i in
+        paths = [search_result[1] for search_result in search_results]
+        links = [paths[i] + '/' + filenames[i] + '.pdf' for i in
                      range(len(filenames))]
         scores = [search_result[2] for search_result in search_results]
         dataframe = pd.DataFrame({'File': filenames, 'Link': links, 'Score': scores})
@@ -350,10 +350,11 @@ class SearchEngineElasticSearch:
         self._results = list()
         self._result_query = elastic.query_elastic_by_keywords(query_string, self.index_name, max_size=max_size)
         self._scores = elastic.return_files_by_field(self._result_query, 'score', number_displayed_results=max_size)
-        self._documents = elastic.return_files_by_field(self._result_query, 'text', number_displayed_results=max_size)
-        self._names = elastic.return_files_by_field(self._result_query, 'names', number_displayed_results=max_size)
-        self._files = elastic.return_files_by_field(self._result_query, 'file', number_displayed_results=max_size)
-        self._dirs = elastic.return_files_by_field(self._result_query, 'dir', number_displayed_results=max_size)
+        self._documents = elastic.return_files_by_field(self._result_query, 'content', number_displayed_results=max_size)
+        self._names = elastic.return_files_by_field(self._result_query, 'name', number_displayed_results=max_size)
+        self._names = [entry[:-4] for entry in self._names]
+        self._files = elastic.return_files_by_field(self._result_query, 'name', number_displayed_results=max_size)
+        self._dirs = ['cvs']*len(self._files)
 
         if summary:
             keywords = query_string.split()

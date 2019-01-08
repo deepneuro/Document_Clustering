@@ -78,7 +78,7 @@ def query_elastic_by_keywords(keywords, index, max_size=10):
     # JSON of the query
     query_body = {"query": {
                             "match": {
-                                             "text": {
+                                             "content": {
                                                          "query": keywords,
                                                          "analyzer": 'patterned_analyzer'
                                                         }

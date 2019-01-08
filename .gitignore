@@ -27,3 +27,4 @@ tfidf_matrix.pkl
 **/__pycache__
 **/papers
 **/Vibracoes
+**/cvs
