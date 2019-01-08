@@ -1,3 +1,4 @@
+from clustering import *
 import os  # for os.path.basename
 import matplotlib.pyplot as plt
 import matplotlib as mpl
@@ -6,7 +7,7 @@ import pandas as pd
 import mpld3
 import time
 
-class Plot():
+class Plot(Clustering):
 
     def __init__(self, folder=None):
         super().__init__(self)

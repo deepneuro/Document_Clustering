@@ -1,65 +1,84 @@
+from sklearn.metrics.pairwise import cosine_similarity
+from sklearn.cluster import KMeans
+from sklearn.externals import joblib
 import pandas as pd
-from sklearn.cluster import MiniBatchKMeans
+from text_processing import *
 
+class Clustering(TextProcessing):
 
-def k_means_definition(tf_idf_matrix, n_clusters):
-    """
-    Trains a new K_means model for a TF-IDF matrix.
-    :param tf_idf_matrix: Sparse matrix of TF-IDF for documents
-    :param n_clusters: Number of clusters to create
-    :return: Fitted model
-    """
-    k_means_model = MiniBatchKMeans(n_clusters=n_clusters, random_state=0)
+    def __init__(self, folder, num_clusters=None, documents=None):
+        super().__init__(self, documents)
+        self.folder = folder
+        self.documents = documents
+        self.num_clusters = num_clusters
+        if self.num_clusters is None:
+            self.num_clusters = 4
 
-    k_means_model.fit(tf_idf_matrix)
+    def getTerms(self):
+        terms = self.tfidf_vectorizer.get_feature_names()
+        return terms
 
-    return k_means_model
+    def getVocabFrame(self):
+        totalvocab_tokenized, totalvocab_stemmed, lemma = self.text_process()
+        vocab_frame = pd.DataFrame({'words': lemma}, index = lemma)
+        return vocab_frame
 
+    def distance(self):
+        self.dist = 1 - cosine_similarity(self.tfidf_matrix)
+        
+    def k_means(self):
+        self.km = KMeans(n_clusters=self.num_clusters)
+        self.km.fit(self.tfidf_matrix)
 
-def top_terms(k_means_model, token_list, keywords_number, txt_files):
-    """
-    For a given KMeans fitted model, returns the most important tokens for its
-    definition.
-    :param k_means_model: KMeans model
-    :param token_list: TF-IDF feature names
-    :param keywords_number: Number of keywords to return
-    :param txt_files: Files where the TF-IDF was processed
-    :return: Top TF-IDF feature names
-    """
+    def clusters(self):
+        self.k_means()
+        clusters = self.km.labels_.tolist()
+        return clusters
 
-    n_clusters = k_means_model.n_clusters
-    ordered_centroids = k_means_model.cluster_centers_.argsort()[:, ::-1]
-    word_list = list()
-    files_dataframe = cluster_file_dataframe(k_means_model, txt_files)
+    def dump_Kmeans(self):
+        from sklearn.externals import joblib
+        joblib.dump(self.km, 'doc_cluster.pkl')
 
-    for cluster_number in range(n_clusters):
-        cluster_string = "Cluster {}".format(cluster_number)
+    def load_Kmeans(self):
+        self.km = joblib.load('doc_cluster.pkl')
+        clusters = self.km.labels_.tolist()
+        return clusters
 
-        token_strings = [token_list[word_number] for word_number in
-                         ordered_centroids[cluster_number, :keywords_number]]
+    def load_tfidf(self):
+        self.tfidf_matrix = joblib.load('tfidf_matrix.pkl')
+        self.tfidf_vectorizer = joblib.load('vectorizer.pkl')
+        print("TF-IDF Loaded!\n")
 
-        word_list.append([cluster_string]+token_strings)
+    def matrix2dataframe(self):
+        cPaths = Paths(self.folder)
+        self.filenames, self.folders = cPaths.getTxts()
+        self.documents, self.textOnly = self.docTxtLists()
+        docs_dict = { 'filename': self.filenames, 'txt': self.textOnly, 'cluster': self.clusters() }
+        frame = pd.DataFrame(docs_dict, index = [self.clusters()] , columns = ['filename', 'cluster'])
+        return frame
 
-        files = files_dataframe.ix[cluster_number]['filename'].values.tolist()
+    def top_terms(self):
+        self.load_tfidf()
+        frame = self.matrix2dataframe()
+        terms = self.getTerms()
+        vocab_frame = self.getVocabFrame()
 
-        word_list.append(['File Names of Cluster {}'.format(cluster_number)] +
-                         files)
+        print("Top terms per cluster:")
+        print()
+        #sort cluster centers by proximity to centroid
+        order_centroids = self.km.cluster_centers_.argsort()[:, ::-1]
 
-    return word_list
-
-
-def cluster_file_dataframe(k_means_model, txt_files):
-    """
-    Creates a matrix with the cluster each file is in.
-    :param k_means_model: The clustering model (KMeans)
-    :param txt_files: The text files used
-    :return: a dataframe with the cluster of each text file
-    """
-    dataframe_dict = {'filename': txt_files,
-                      'cluster': k_means_model.labels_.tolist()}
-
-    dataframe = pd.DataFrame(dataframe_dict,
-                             index=[k_means_model.labels_.tolist()],
-                             columns=['filename', 'cluster'])
-
-    return dataframe
+        for i in range(self.num_clusters):
+            print("Cluster %d words:" % i, end='')
+            for ind in order_centroids[i, :6]: #replace 6 with n words per cluster
+                print(' %s' % vocab_frame.ix[terms[ind].split(' ')].values.tolist()[0][0].encode('utf-8', 'ignore'), end=',')
+            print() #add whitespace
+            print() #add whitespace
+            print("Cluster %d Filenames:" % i, end='')
+            for title in frame.ix[i]['filename'].values.tolist():
+                print(' %s,' % title, end='')
+            print() #add whitespace
+            print() #add whitespace
+        print()
+        print()
+        
