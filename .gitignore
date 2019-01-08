@@ -21,6 +21,7 @@ vectorizer.pkl
 doc_txtPaths.pkl
 tfidf_matrix.pkl
 
+**/cvs
 **/CV
 **/.ipynb_checkpoints
 **/.idea
