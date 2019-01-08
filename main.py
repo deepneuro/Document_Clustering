@@ -16,7 +16,8 @@ def pretty_print(df):
     :param df: DataFrame to be printed
     """
     print_df = df.style.format({'Link': make_clickable})
-    display(print_df)
+
+    return print_df
 
 
 def make_clickable(val):
@@ -34,7 +35,7 @@ def create_results_df(search_results):
     DataFrame to be printed.
     :param search_results: Results of a search with or without ElasticSearch
     """
-    print('Results:')
+
     if len(search_results[0]) == 5:
         filenames = [search_result[0] for search_result in search_results]
         paths = [search_result[1][:-3] for search_result in search_results]
@@ -53,7 +54,9 @@ def create_results_df(search_results):
 
     pd.set_option('display.max_colwidth', -1)
 
-    pretty_print(dataframe)
+    df = pretty_print(dataframe)
+
+    return df
 
 
 def write_txt_documents(path):
@@ -368,6 +371,6 @@ class SearchEngineElasticSearch:
             for index in range(len(self._documents)):
                 self._results.append((self._names[index], self._dirs[index], self._scores[index]))
 
-        create_results_df(self._results)
+        final_df = create_results_df(self._results)
 
-        return self._results
+        return self._results, final_df
