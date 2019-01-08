@@ -25,3 +25,5 @@ tfidf_matrix.pkl
 **/.ipynb_checkpoints
 **/.idea
 **/__pycache__
+**/papers
+**/Vibracoes
