@@ -1,6 +1,5 @@
 from elasticsearch import Elasticsearch
 from elasticsearch.helpers import bulk
-import re
 
 # Defining the server of ElasticSearch
 es = Elasticsearch(['192.168.20.32:9200'])
@@ -148,6 +147,3 @@ def return_files_by_field(elastic_results, return_field, number_displayed_result
                           for doc_number in range(number_iterations)]
 
         return field_list
-
-import msgpack
-msgpack.ExtType
